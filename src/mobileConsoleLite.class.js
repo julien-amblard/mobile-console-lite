@@ -186,10 +186,42 @@ class Idebug {
             events      : [],
             css         : {
                 default : {
-                    height              :  "100%",
-                    'max-height'           : "200px",
-                    'background-color'     : "white",
-                    'overflow-y'           : 'scroll'
+                    padding                 : "15px",
+                    height                  : "100%",
+                    'max-height'            : "200px",
+                    'background-color'      : "white",
+                    'overflow-y'            : 'scroll'
+                }
+            }
+        }
+
+        this.consoleLine = {
+            class       : 'consoleLine',
+            el          : "span",
+            content     : "",
+            events      : [],
+            css         : {
+                default : {
+                    posititon               : "relative",
+                    display                 : "block",
+                    padding                  : "5px 25px"
+                }
+            }
+        }
+
+        this.consoleCount = {
+            class       : 'consoleLine',
+            el          : "span",
+            content     : 0,
+            events      : [],
+            css         : {
+                default : {
+                    position            : "absolute",
+                    height              : "100%",
+                    left                : "0",
+                    'background-color'  : "#efeeee",
+                    padding             : "0 5px",
+                    color               : "#9c9b9b"
                 }
             }
         }
@@ -198,6 +230,8 @@ class Idebug {
         this.objects.push( this.console );
         this.objects.push( this.consoleTools );
         this.objects.push( this.consoleWrap );
+        this.objects.push( this.consoleLine );
+        this.objects.push( this.consoleCount );
         this.objects.push( this.clear );
         this.objects.push( this.toggle );
         this.objects.push( this.expand );
@@ -255,14 +289,14 @@ class Idebug {
         for( let key in arguments ){
             let msg = document.createElement('span');
             msg.style.display = 'block';
-            msg.innerHTML   = this.line + " : " + this.buildMessage( arguments[key] );
+            msg.innerHTML   = this.line + " : " + this.buildLine( arguments[key] );
             oDocFragment.appendChild( msg );
         }
         this.consoleWrap.el.appendChild( oDocFragment )
         this.line++;
     }
 
-    buildMessage( _msg, _isIndent = false ) {
+    buildLine( _msg, _isIndent = false ) {
         let sReturn = "", _sTab;
 
         var sConst = _msg.constructor+'',
