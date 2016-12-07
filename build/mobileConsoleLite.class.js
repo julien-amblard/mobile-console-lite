@@ -71,7 +71,7 @@ var Idebug = function () {
         this.objects = [];
         this.cssBuilder = new cssBuilder();
         this.tab = "    ";
-        console.debug = this.debug.bind(this);
+        console.log = this.debug.bind(this);
 
         this.console = {
             class: 'consoleLog',
@@ -299,9 +299,9 @@ var Idebug = function () {
 
 var debug = new Idebug();
 
-console.debug('test', 'test 2');
-console.debug(['test 3', 'test 4', 2, { prenom: 'julien' }]);
-console.debug({
+console.log('test', 'test 2');
+console.log(['test 3', 'test 4', 2, { prenom: 'julien' }]);
+console.log({
     key1: 'test 5',
     key2: 'test 6',
     key3: { 'key4': 1, 'key5': "test", 'key6': { key7: "test" } }
@@ -309,4 +309,4 @@ console.debug({
 var fn = function fn() {
     2 * 3;
 };
-console.debug(fn);
+console.log(fn);
