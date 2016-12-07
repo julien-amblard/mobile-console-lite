@@ -2,6 +2,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Idebug = function () {
@@ -23,24 +25,29 @@ var Idebug = function () {
                     bottom: "0px",
                     left: "0px",
                     width: "100%",
-                    backgroundColor: "white",
-                    padding: "30px 15px 15px",
+                    backgroundColor: "#e4e3e3",
+                    padding: "0 1px 1px",
                     margin: "0",
-                    maxHeight: "300px"
+                    boxSizing: "border-box",
+                    maxHeight: "300px",
+                    fontFamily: "Arial",
+                    fontSize: "12px"
                 }
             }
         };
 
-        this.consoleWrap = {
-            class: 'consoleLog',
-            el: "pre",
-            content: "",
+        this.consoleTools = {
+            class: 'consoleLogTools',
+            el: "div",
             events: [],
+            content: "",
             css: {
                 default: {
-                    height: "100%",
-                    maxHeight: "200px",
-                    overflowY: 'scroll'
+                    position: "relative",
+                    width: "100%",
+                    height: "40px",
+                    backgroundColor: "rgb(58, 54, 54)",
+                    boxSizing: "border-box"
                 }
             }
         };
@@ -54,23 +61,26 @@ var Idebug = function () {
                 fn: this.clearConsole.bind(this)
             }],
             css: {
-                default: {
+                default: _defineProperty({
                     position: "absolute",
-                    top: "10px",
-                    right: '40px',
-                    height: "15px",
-                    backgroundColor: "red",
+                    top: "0",
+                    bottom: "0",
+                    right: "0",
+
+                    height: "100%",
+                    backgroundColor: "#cc3575",
                     color: "white",
                     cursor: "pointer",
-                    padding: "2px"
-                }
+                    padding: "12px",
+                    boxSizing: "border-box"
+                }, "cursor", "pointer")
             }
         };
 
         this.toggle = {
             class: 'consoleToggle',
             el: "div",
-            content: "",
+            content: "cacher",
             events: [{
                 name: 'click',
                 fn: this.toggleConsole.bind(this)
@@ -78,12 +88,18 @@ var Idebug = function () {
             css: {
                 default: {
                     position: "absolute",
-                    bottom: "100%",
-                    right: '40px',
-                    height: "20px",
-                    width: "30px",
-                    backgroundColor: "black",
-                    bordeRadius: "4px 4px 0 0"
+                    top: "0",
+                    bottom: "0",
+                    left: '10px',
+                    margin: "auto",
+
+                    height: "15px",
+                    backgroundColor: "rgb(76, 72, 72)",
+                    color: "white",
+                    padding: "5px",
+                    borderRadius: "2px",
+                    border: "solid 1px #716d6d",
+                    cursor: "pointer"
                 }
             }
         };
@@ -91,7 +107,7 @@ var Idebug = function () {
         this.expand = {
             class: 'consoleExpand',
             el: "div",
-            content: "",
+            content: "agrandir",
             events: [{
                 name: 'click',
                 fn: this.expandConsole.bind(this)
@@ -100,16 +116,38 @@ var Idebug = function () {
                 default: {
                     position: "absolute",
                     top: "0",
-                    left: '10px',
-                    height: "20px",
-                    width: "30px",
-                    backgroundColor: "green",
-                    bordeRadius: "4px 4px 0 0"
+                    bottom: "0",
+                    margin: "auto",
+                    left: '70px',
+
+                    height: "15px",
+                    backgroundColor: "rgb(76, 72, 72)",
+                    color: "white",
+                    padding: "5px",
+                    borderRadius: "2px",
+                    border: "solid 1px #716d6d",
+                    cursor: "pointer"
+                }
+            }
+        };
+
+        this.consoleWrap = {
+            class: 'consoleWrap',
+            el: "pre",
+            content: "",
+            events: [],
+            css: {
+                default: {
+                    height: "100%",
+                    maxHeight: "200px",
+                    backgroundColor: "white",
+                    overflowY: 'scroll'
                 }
             }
         };
 
         this.objects.push(this.console);
+        this.objects.push(this.consoleTools);
         this.objects.push(this.consoleWrap);
         this.objects.push(this.clear);
         this.objects.push(this.toggle);
@@ -117,10 +155,11 @@ var Idebug = function () {
 
         this.buildElemes();
 
+        this.console.el.appendChild(this.consoleTools.el);
         this.console.el.appendChild(this.consoleWrap.el);
-        this.console.el.appendChild(this.clear.el);
-        this.console.el.appendChild(this.toggle.el);
-        this.console.el.appendChild(this.expand.el);
+        this.consoleTools.el.appendChild(this.clear.el);
+        this.consoleTools.el.appendChild(this.toggle.el);
+        this.consoleTools.el.appendChild(this.expand.el);
         document.body.appendChild(this.console.el);
 
         this.line = 0;
@@ -259,7 +298,7 @@ var Idebug = function () {
 
             this.console.el.classList.toggle('close');
             if (this.console.el.classList.contains('close')) {
-                this.console.el.style.top = "100%";
+                this.console.el.style.top = "calc( 100% - 40px )";
                 this.console.el.style.bottom = "auto";
             } else {
                 this.console.el.style.top = "auto";

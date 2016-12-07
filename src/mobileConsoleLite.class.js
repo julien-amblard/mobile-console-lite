@@ -15,27 +15,33 @@ class Idebug {
                     bottom              : "0px",
                     left                : "0px",
                     width               : "100%",
-                    backgroundColor     : "white",
-                    padding             : "30px 15px 15px",
+                    backgroundColor     : "#e4e3e3",
+                    padding             : "0 1px 1px",
                     margin              : "0",
-                    maxHeight           : "300px"
+                    boxSizing           : "border-box",
+                    maxHeight           : "300px",
+                    fontFamily          : "Arial",
+                    fontSize            : "12px"
                 }
             }
         }
 
-        this.consoleWrap = {
-            class       : 'consoleLog',
-            el          : "pre",
-            content     : "",
+        this.consoleTools = {
+            class       : 'consoleLogTools',
+            el          : "div",
             events      : [],
+            content     : "",
             css         : {
                 default : {
-                    height              :  "100%",
-                    maxHeight           : "200px",
-                    overflowY           : 'scroll'
+                    position            : "relative",
+                    width               : "100%",
+                    height              : "40px",
+                    backgroundColor     : "rgb(58, 54, 54)",
+                    boxSizing           : "border-box",
                 }
             }
         }
+
 
         this.clear = {
             class       : 'consoleClear',
@@ -47,14 +53,18 @@ class Idebug {
             }],
             css         : {
                 default : {
-                    position        :  "absolute",
-                    top             : "10px",
-                    right           : '40px',
-                    height          : "15px",
-                    backgroundColor : "red",
-                    color           : "white",
-                    cursor          : "pointer",
-                    padding         : "2px",
+                    position            :  "absolute",
+                    top                 : "0",
+                    bottom              : "0",
+                    right               : "0",
+
+                    height              : "100%",
+                    backgroundColor     : "#cc3575",
+                    color               : "white",
+                    cursor              : "pointer",
+                    padding             : "12px",
+                    boxSizing           : "border-box",
+                    cursor              : "pointer"
                 }
             }
         }
@@ -62,7 +72,7 @@ class Idebug {
         this.toggle = {
             class       : 'consoleToggle',
             el          : "div",
-            content     : "",
+            content     : "cacher",
             events      : [{
                 name    : 'click',
                 fn      : this.toggleConsole.bind(this)
@@ -70,12 +80,18 @@ class Idebug {
             css         : {
                 default : {
                     position            :  "absolute",
-                    bottom              : "100%",
-                    right               : '40px',
-                    height              : "20px",
-                    width               : "30px",
-                    backgroundColor     : "black",
-                    bordeRadius         : "4px 4px 0 0"
+                    top                 : "0",
+                    bottom              : "0",
+                    left                : '10px',
+                    margin              : "auto",
+
+                    height              : "15px",
+                    backgroundColor     : "rgb(76, 72, 72)",
+                    color               : "white",
+                    padding             : "5px",
+                    borderRadius        : "2px",
+                    border              : "solid 1px #716d6d",
+                    cursor              : "pointer"
                 }
             }
         }
@@ -83,7 +99,7 @@ class Idebug {
         this.expand = {
             class       : 'consoleExpand',
             el          : "div",
-            content     : "",
+            content     : "agrandir",
             events      : [{
                 name    : 'click',
                 fn      : this.expandConsole.bind(this)
@@ -92,17 +108,40 @@ class Idebug {
                 default : {
                     position            :  "absolute",
                     top                 : "0",
-                    left               : '10px',
-                    height              : "20px",
-                    width               : "30px",
-                    backgroundColor     : "green",
-                    bordeRadius         : "4px 4px 0 0"
+                    bottom              : "0",
+                    margin              : "auto",
+                    left                : '70px',
+
+                    height              : "15px",
+                    backgroundColor     : "rgb(76, 72, 72)",
+                    color               : "white",
+                    padding             : "5px",
+                    borderRadius        : "2px",
+                    border              : "solid 1px #716d6d",
+                    cursor              : "pointer"
+                }
+            }
+        }
+
+
+        this.consoleWrap = {
+            class       : 'consoleWrap',
+            el          : "pre",
+            content     : "",
+            events      : [],
+            css         : {
+                default : {
+                    height              :  "100%",
+                    maxHeight           : "200px",
+                    backgroundColor     : "white",
+                    overflowY           : 'scroll'
                 }
             }
         }
 
 
         this.objects.push( this.console );
+        this.objects.push( this.consoleTools );
         this.objects.push( this.consoleWrap );
         this.objects.push( this.clear );
         this.objects.push( this.toggle );
@@ -110,10 +149,11 @@ class Idebug {
 
         this.buildElemes();
 
+        this.console.el.appendChild( this.consoleTools.el );
         this.console.el.appendChild( this.consoleWrap.el );
-        this.console.el.appendChild( this.clear.el );
-        this.console.el.appendChild( this.toggle.el );
-        this.console.el.appendChild( this.expand.el );
+        this.consoleTools.el.appendChild( this.clear.el );
+        this.consoleTools.el.appendChild( this.toggle.el );
+        this.consoleTools.el.appendChild( this.expand.el );
         document.body.appendChild( this.console.el );
 
         this.line = 0;
@@ -235,7 +275,7 @@ class Idebug {
 
         this.console.el.classList.toggle('close');
         if( this.console.el.classList.contains('close') ){
-            this.console.el.style.top = "100%";
+            this.console.el.style.top = "calc( 100% - 40px )";
             this.console.el.style.bottom = "auto";
         }else{
             this.console.el.style.top = "auto";
