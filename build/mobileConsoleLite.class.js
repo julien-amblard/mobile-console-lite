@@ -6,13 +6,75 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+/***********************************************
+  ____  _   _ ___ _     ____  _____ ____
+ | __ )| | | |_ _| |   |  _ \| ____|  _ \
+ |  _ \| | | || || |   | | | |  _| | |_) |
+ | |_) | |_| || || |___| |_| | |___|  _ <
+ |____/ \___/|___|_____|____/|_____|_| \_\
+************************************************/
+
+var cssBuilder = function () {
+
+    /**
+     *
+     */
+    function cssBuilder() {
+        _classCallCheck(this, cssBuilder);
+
+        this.parent = this._addBalise();
+        this.hasProp = {}.hasOwnProperty;
+    }
+
+    /**
+     *
+     */
+
+
+    _createClass(cssBuilder, [{
+        key: "addStyle",
+        value: function addStyle(sSelect, oCss) {
+            var sProp,
+                sValue,
+                tmp = [];
+
+            for (sProp in oCss) {
+                if (!this.hasProp.call(oCss, sProp)) continue;
+                sValue = oCss[sProp];
+                tmp.push("" + sProp + ":" + sValue);
+            }
+
+            this.parent.insertAdjacentText('beforeend', sSelect + " { " + tmp.join(';') + "; }");
+        }
+
+        /**
+         *
+         */
+
+    }, {
+        key: "_addBalise",
+        value: function _addBalise() {
+            var oParent = document.createElement('style');
+            oParent.type = 'text/css';
+            document.head.appendChild(oParent);
+            return oParent;
+        }
+    }]);
+
+    return cssBuilder;
+}();
+
 var Idebug = function () {
     function Idebug() {
         _classCallCheck(this, Idebug);
 
-        this.objects = [];
+        var oFragmentConsole = document.createDocumentFragment();
+        var oFragmentTools = document.createDocumentFragment();
 
+        this.objects = [];
+        this.cssBuilder = new cssBuilder();
         console.log = this.debug.bind(this);
+
         this.console = {
             class: 'consoleLog',
             el: "div",
@@ -20,18 +82,18 @@ var Idebug = function () {
             content: "",
             css: {
                 default: {
-                    zIndex: 9999999,
+                    'z-index': 9999999,
                     position: 'fixed',
                     bottom: "0px",
                     left: "0px",
                     width: "100%",
-                    backgroundColor: "#e4e3e3",
+                    'background-color': "#e4e3e3",
                     padding: "0 1px 1px",
                     margin: "0",
-                    boxSizing: "border-box",
-                    maxHeight: "300px",
-                    fontFamily: "Arial",
-                    fontSize: "12px"
+                    'box-sizing': "border-box",
+                    'max-height': "300px",
+                    'font-family': "Arial",
+                    'font-size': "12px"
                 }
             }
         };
@@ -46,8 +108,8 @@ var Idebug = function () {
                     position: "relative",
                     width: "100%",
                     height: "40px",
-                    backgroundColor: "rgb(58, 54, 54)",
-                    boxSizing: "border-box"
+                    'background-color': "rgb(58, 54, 54)",
+                    'box-sizing': "border-box"
                 }
             }
         };
@@ -68,11 +130,11 @@ var Idebug = function () {
                     right: "0",
 
                     height: "100%",
-                    backgroundColor: "#cc3575",
+                    'background-color': "#cc3575",
                     color: "white",
                     cursor: "pointer",
                     padding: "12px",
-                    boxSizing: "border-box"
+                    'box-sizing': "border-box"
                 }, "cursor", "pointer")
             }
         };
@@ -94,10 +156,10 @@ var Idebug = function () {
                     margin: "auto",
 
                     height: "15px",
-                    backgroundColor: "rgb(76, 72, 72)",
+                    'background-color': "rgb(76, 72, 72)",
                     color: "white",
                     padding: "5px",
-                    borderRadius: "2px",
+                    'border-radius': "2px",
                     border: "solid 1px #716d6d",
                     cursor: "pointer"
                 }
@@ -121,10 +183,10 @@ var Idebug = function () {
                     left: '70px',
 
                     height: "15px",
-                    backgroundColor: "rgb(76, 72, 72)",
+                    'background-color': "rgb(76, 72, 72)",
                     color: "white",
                     padding: "5px",
-                    borderRadius: "2px",
+                    'border-radius': "2px",
                     border: "solid 1px #716d6d",
                     cursor: "pointer"
                 }
@@ -139,9 +201,9 @@ var Idebug = function () {
             css: {
                 default: {
                     height: "100%",
-                    maxHeight: "200px",
-                    backgroundColor: "white",
-                    overflowY: 'scroll'
+                    'max-height': "200px",
+                    'background-color': "white",
+                    'overflow-y': 'scroll'
                 }
             }
         };
@@ -155,11 +217,15 @@ var Idebug = function () {
 
         this.buildElemes();
 
-        this.console.el.appendChild(this.consoleTools.el);
-        this.console.el.appendChild(this.consoleWrap.el);
-        this.consoleTools.el.appendChild(this.clear.el);
-        this.consoleTools.el.appendChild(this.toggle.el);
-        this.consoleTools.el.appendChild(this.expand.el);
+        oFragmentTools.appendChild(this.clear.el);
+        oFragmentTools.appendChild(this.toggle.el);
+        oFragmentTools.appendChild(this.expand.el);
+        this.consoleTools.el.appendChild(oFragmentTools);
+
+        oFragmentConsole.appendChild(this.consoleTools.el);
+        oFragmentConsole.appendChild(this.consoleWrap.el);
+        this.console.el.appendChild(oFragmentConsole);
+
         document.body.appendChild(this.console.el);
 
         this.line = 0;
@@ -168,7 +234,8 @@ var Idebug = function () {
     _createClass(Idebug, [{
         key: "buildElemes",
         value: function buildElemes() {
-            for (var i = this.objects.length - 1; i >= 0; i--) {
+            var i = this.objects.length - 1;
+            for (; i >= 0; i--) {
                 this.objects[i].el = this.getDom(this.objects[i]);
                 this.objects[i].el = this.getCss(this.objects[i], 'default');
                 this.objects[i].el = this.getEvents(this.objects[i]);
@@ -186,16 +253,15 @@ var Idebug = function () {
         value: function getCss(obj) {
             var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
 
-            obj.el.className = obj.class;
-            for (var prop in obj.css.default) {
-                obj.el.style[prop] = obj.css[key][prop];
-            }
+            obj.el.className = key + '_' + obj.class;
+            this.cssBuilder.addStyle('.' + obj.el.className, obj.css[key]);
             return obj.el;
         }
     }, {
         key: "getEvents",
         value: function getEvents(obj) {
-            for (var i = obj.events.length - 1; i >= 0; i--) {
+            var i = obj.events.length - 1;
+            for (; i >= 0; i--) {
                 obj.el.addEventListener(obj.events[i].name, obj.events[i].fn);
             }
             return obj.el;
@@ -203,12 +269,14 @@ var Idebug = function () {
     }, {
         key: "debug",
         value: function debug(_msg) {
+            var oDocFragment = document.createDocumentFragment();
             for (var key in arguments) {
                 var msg = document.createElement('span');
                 msg.style.display = 'block';
                 msg.innerHTML = this.line + " : " + this.buildMessage(arguments[key]);
-                this.consoleWrap.el.appendChild(msg);
+                oDocFragment.appendChild(msg);
             }
+            this.consoleWrap.el.appendChild(oDocFragment);
             this.line++;
         }
     }, {
@@ -216,75 +284,20 @@ var Idebug = function () {
         value: function buildMessage(_msg) {
             var _isIndent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-            var sReturn = "";
-            switch (true) {
-                case typeof _msg === "function":
-                    sReturn += 'function : ' + this.getFuncName(_msg);
-                    break;
-                case _msg instanceof Array:
-                    sReturn = "Array [";
-                    sReturn += "   " + this.buildArray(_msg, _isIndent);
-                    sReturn += "<br/>";
-                    if (_isIndent) sReturn += "   ";
-                    sReturn += "]";
-                    break;
-                case _msg instanceof Object:
-                    sReturn = "Object {";
-                    sReturn += "   " + this.buildObject(_msg, _isIndent);
-                    sReturn += "<br/>";
-                    if (_isIndent) sReturn += "   ";
-                    sReturn += "}";
-                    break;
+            var sReturn = "",
+                _sTab = void 0;
 
-                default:
-                    sReturn = _msg;
-                    break;
+            var sConst = _msg.constructor + '',
+                oRegex = /(function |\(\) \{ \[native code\] \})/g,
+                sName = sConst.replace(oRegex, '');
+
+            sReturn = sName + " " + JSON.stringify(_msg, null, 2) + "";
+
+            if (sName == 'Function') {
+                sReturn = sName + ' ' + _msg;
             }
-            return sReturn;
-        }
-    }, {
-        key: "buildObject",
-        value: function buildObject(obj) {
-            var _isIndent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
-            var sReturn = "";
-            for (var key in obj) {
-                sReturn += "<br/>";
-                if (_isIndent) sReturn += "   ";
-                sReturn += "    " + key + " : ";
-                if (typeof obj[key] === "string" || typeof obj[key] === "int") {
-                    sReturn += obj[key];
-                } else {
-                    sReturn += this.buildMessage(obj[key], true);
-                }
-            }
             return sReturn;
-        }
-    }, {
-        key: "buildArray",
-        value: function buildArray(arr) {
-            var _isIndent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-            var sReturn = "";
-            for (var i = arr.length - 1; i >= 0; i--) {
-                sReturn += "<br/>";
-                if (typeof arr[i] === "string" || typeof arr[i] === "int") {
-                    sReturn += "    " + arr[i];
-                } else {
-                    sReturn += this.buildMessage(arr[i], true);
-                }
-            }
-            return sReturn;
-        }
-    }, {
-        key: "getFuncName",
-        value: function getFuncName() {
-            var _fn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
-            var ret = _fn.toString();
-            ret = ret.substr('function '.length);
-            ret = ret.substr(0, ret.indexOf('('));
-            return ret;
         }
     }, {
         key: "clearConsole",
@@ -327,11 +340,13 @@ var Idebug = function () {
 var debug = new Idebug();
 
 console.log('test', 'test 2');
-console.log(['test 3', 'test 4']);
+console.log(['test 3', 'test 4', 2, { prenom: 'julien' }]);
 console.log({
     key1: 'test 5',
     key2: 'test 6',
     key3: { 'key4': 1, 'key5': "test", 'key6': { key7: "test" } }
 });
-var fn = function fn() {};
+var fn = function fn() {
+    2 * 3;
+};
 console.log(fn);
