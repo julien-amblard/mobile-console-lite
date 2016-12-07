@@ -1,27 +1,82 @@
+/***********************************************
+  ____  _   _ ___ _     ____  _____ ____
+ | __ )| | | |_ _| |   |  _ \| ____|  _ \
+ |  _ \| | | || || |   | | | |  _| | |_) |
+ | |_) | |_| || || |___| |_| | |___|  _ <
+ |____/ \___/|___|_____|____/|_____|_| \_\
+************************************************/
+
+class cssBuilder{
+
+    /**
+     *
+     */
+    constructor(){
+        this.parent  = this._addBalise();
+        this.hasProp = {}.hasOwnProperty;
+    }
+
+    /**
+     *
+     */
+    addStyle( sSelect, oCss){
+        var sProp, sValue,  tmp = [];
+
+        for (sProp in oCss) {
+            if ( !this.hasProp.call( oCss, sProp)) continue;
+            sValue = oCss[sProp];
+            tmp.push( "" + sProp + ":" + sValue);
+        }
+
+        this.parent.insertAdjacentText(
+            'beforeend',
+            sSelect + " { " + tmp.join(';') + "; }"
+        );
+    }
+
+    /**
+     *
+     */
+    _addBalise(){
+        let oParent  = document.createElement('style');
+        oParent.type = 'text/css';
+        document.head.appendChild( oParent);
+        return oParent;
+    }
+}
+
+
+
 class Idebug {
     constructor () {
-        this.objects = [];
 
+        let oFragmentConsole        = document.createDocumentFragment();
+        let oFragmentTools          = document.createDocumentFragment();
+
+        this.objects    = [];
+        this.cssBuilder = new cssBuilder();
         console.log = this.debug.bind(this);
+
+
         this.console = {
             class       : 'consoleLog',
             el          : "div",
             events      : [],
             content     : "",
             css         : {
-                default : {
-                    zIndex              : 9999999,
+                default     : {
+                    'z-index'              : 9999999,
                     position            : 'fixed',
                     bottom              : "0px",
                     left                : "0px",
                     width               : "100%",
-                    backgroundColor     : "#e4e3e3",
+                    'background-color'     : "#e4e3e3",
                     padding             : "0 1px 1px",
                     margin              : "0",
-                    boxSizing           : "border-box",
-                    maxHeight           : "300px",
-                    fontFamily          : "Arial",
-                    fontSize            : "12px"
+                    'box-sizing'           : "border-box",
+                    'max-height'           : "300px",
+                    'font-family'          : "Arial",
+                    'font-size'            : "12px"
                 }
             }
         }
@@ -32,12 +87,12 @@ class Idebug {
             events      : [],
             content     : "",
             css         : {
-                default : {
+                default     : {
                     position            : "relative",
                     width               : "100%",
                     height              : "40px",
-                    backgroundColor     : "rgb(58, 54, 54)",
-                    boxSizing           : "border-box",
+                    'background-color'     : "rgb(58, 54, 54)",
+                    'box-sizing'           : "border-box",
                 }
             }
         }
@@ -53,17 +108,17 @@ class Idebug {
             }],
             css         : {
                 default : {
-                    position            :  "absolute",
+                    position            : "absolute",
                     top                 : "0",
                     bottom              : "0",
                     right               : "0",
 
                     height              : "100%",
-                    backgroundColor     : "#cc3575",
+                    'background-color'     : "#cc3575",
                     color               : "white",
                     cursor              : "pointer",
                     padding             : "12px",
-                    boxSizing           : "border-box",
+                    'box-sizing'           : "border-box",
                     cursor              : "pointer"
                 }
             }
@@ -79,17 +134,17 @@ class Idebug {
             }],
             css         : {
                 default : {
-                    position            :  "absolute",
+                    position            : "absolute",
                     top                 : "0",
                     bottom              : "0",
                     left                : '10px',
                     margin              : "auto",
 
                     height              : "15px",
-                    backgroundColor     : "rgb(76, 72, 72)",
+                    'background-color'     : "rgb(76, 72, 72)",
                     color               : "white",
                     padding             : "5px",
-                    borderRadius        : "2px",
+                    'border-radius'        : "2px",
                     border              : "solid 1px #716d6d",
                     cursor              : "pointer"
                 }
@@ -106,17 +161,17 @@ class Idebug {
             }],
             css         : {
                 default : {
-                    position            :  "absolute",
+                    position            : "absolute",
                     top                 : "0",
                     bottom              : "0",
                     margin              : "auto",
                     left                : '70px',
 
                     height              : "15px",
-                    backgroundColor     : "rgb(76, 72, 72)",
+                    'background-color'     : "rgb(76, 72, 72)",
                     color               : "white",
                     padding             : "5px",
-                    borderRadius        : "2px",
+                    'border-radius'        : "2px",
                     border              : "solid 1px #716d6d",
                     cursor              : "pointer"
                 }
@@ -132,9 +187,9 @@ class Idebug {
             css         : {
                 default : {
                     height              :  "100%",
-                    maxHeight           : "200px",
-                    backgroundColor     : "white",
-                    overflowY           : 'scroll'
+                    'max-height'           : "200px",
+                    'background-color'     : "white",
+                    'overflow-y'           : 'scroll'
                 }
             }
         }
@@ -149,18 +204,27 @@ class Idebug {
 
         this.buildElemes();
 
-        this.console.el.appendChild( this.consoleTools.el );
-        this.console.el.appendChild( this.consoleWrap.el );
-        this.consoleTools.el.appendChild( this.clear.el );
-        this.consoleTools.el.appendChild( this.toggle.el );
-        this.consoleTools.el.appendChild( this.expand.el );
+
+
+
+        oFragmentTools.appendChild( this.clear.el );
+        oFragmentTools.appendChild( this.toggle.el );
+        oFragmentTools.appendChild( this.expand.el );
+        this.consoleTools.el.appendChild( oFragmentTools );
+
+        oFragmentConsole.appendChild( this.consoleTools.el );
+        oFragmentConsole.appendChild( this.consoleWrap.el );
+        this.console.el.appendChild( oFragmentConsole );
+
+
         document.body.appendChild( this.console.el );
 
         this.line = 0;
 
     }
     buildElemes () {
-        for (var i = this.objects.length - 1; i >= 0; i--) {
+        var i = this.objects.length - 1;
+        for (; i >= 0; i--) {
             this.objects[i].el = this.getDom( this.objects[i] );
             this.objects[i].el = this.getCss( this.objects[i], 'default' );
             this.objects[i].el = this.getEvents( this.objects[i] );
@@ -168,103 +232,51 @@ class Idebug {
     }
     getDom ( obj ) {
         let $el = document.createElement( obj.el );
-        $el.innerHTML = obj.content; 
+        $el.innerHTML = obj.content;
         return $el;
     }
     getCss ( obj, key = 'default' ) {
-        obj.el.className = obj.class;
-        for( let prop in obj.css.default ){
-            obj.el.style[prop] = obj.css[key][prop];
-        }
+        obj.el.className = key +'_'+ obj.class;
+        this.cssBuilder.addStyle( '.'+obj.el.className, obj.css[ key ]);
         return obj.el;
     }
     getEvents ( obj ) {
-        for (var i = obj.events.length - 1; i >= 0; i--) {
-            obj.el.addEventListener( obj.events[i].name, obj.events[i].fn ); 
+        var i = obj.events.length - 1;
+        for (; i >= 0; i--) {
+            obj.el.addEventListener( obj.events[ i ].name, obj.events[ i ].fn );
         }
         return obj.el;
     }
-
-
-
 
 
 
     debug ( _msg ) {
+        var oDocFragment = document.createDocumentFragment();
         for( let key in arguments ){
             let msg = document.createElement('span');
             msg.style.display = 'block';
-            msg.innerHTML = this.line + " : " + this.buildMessage( arguments[key] );
-            this.consoleWrap.el.appendChild( msg )         
+            msg.innerHTML   = this.line + " : " + this.buildMessage( arguments[key] );
+            oDocFragment.appendChild( msg );
         }
+        this.consoleWrap.el.appendChild( oDocFragment )
         this.line++;
     }
 
     buildMessage( _msg, _isIndent = false ) {
-        let sReturn = "";
-        switch ( true ){
-        case ( typeof _msg === "function" ) :
-            sReturn += 'function : ' + this.getFuncName(_msg);
-            break
-        case _msg instanceof Array:
-            sReturn = "Array [";
-            sReturn += "   " + this.buildArray( _msg, _isIndent );
-            sReturn += "<br/>";
-            if( _isIndent ) sReturn += "   ";
-            sReturn += "]";         
-            break
-        case _msg instanceof Object:
-            sReturn = "Object {";
-            sReturn += "   "+this.buildObject( _msg, _isIndent );
-            sReturn += "<br/>";
-            if( _isIndent ) sReturn += "   ";
-            sReturn += "}";
-            break
-        
-        default : 
-            sReturn = _msg;
-            break
+        let sReturn = "", _sTab;
+
+        var sConst = _msg.constructor+'',
+            oRegex = /(function |\(\) \{ \[native code\] \})/g,
+            sName  = sConst.replace( oRegex, '');
+
+        sReturn = sName+ " " + JSON.stringify( _msg, null, 2)+ "";
+
+        if( sName == 'Function'){
+          sReturn = sName +' '+ _msg;
         }
+
         return sReturn;
     }
-
-    buildObject ( obj, _isIndent = false ) {
-        let sReturn = "";
-        for( let key in obj ){
-            sReturn += "<br/>";
-            if( _isIndent ) sReturn += "   ";
-            sReturn += "    " + key + " : ";
-            if( typeof obj[key] === "string" || typeof obj[key] === "int" ){
-                sReturn += obj[key];
-            }else{
-                sReturn += this.buildMessage( obj[key], true );
-            }
-        }
-        return sReturn;
-    }
-    buildArray ( arr, _isIndent = false ) {
-        let sReturn = "";
-        for (var i = arr.length - 1; i >= 0; i--) {
-            sReturn += "<br/>";
-            if( typeof arr[i] === "string" || typeof arr[i] === "int" ){
-                sReturn += "    " + arr[i];
-            }else{
-                sReturn += this.buildMessage( arr[i], true );
-            }
-
-        }
-        return sReturn;
-    }
-
-
-
-    getFuncName(_fn = '') {
-        let ret = _fn.toString();
-        ret = ret.substr('function '.length);
-        ret = ret.substr(0, ret.indexOf('('));
-        return ret;
-    }
-
 
     clearConsole() {
         this.consoleWrap.el.innerHTML = "";
@@ -303,11 +315,11 @@ let debug = new Idebug();
 
 
 console.log( 'test', 'test 2' )
-console.log( ['test 3', 'test 4'] )
+console.log( ['test 3', 'test 4', 2, {prenom : 'julien'}] )
 console.log({
-    key1:'test 5', 
-    key2:'test 6', 
-    key3 : {'key4' : 1, 'key5' : "test", 'key6': {key7:"test"} } 
+    key1:'test 5',
+    key2:'test 6',
+    key3 : {'key4' : 1, 'key5' : "test", 'key6': {key7:"test"} }
 })
-let fn = () => {}
+let fn = () => {2*3}
 console.log( fn )
