@@ -407,7 +407,7 @@ class Idebug {
 
     clearConsole() {
         this.consoleWrap.el.textContent = "";
-        this.line = 0;
+        this.consoleCount.content = 0;
     }
 
     toggleConsole(){

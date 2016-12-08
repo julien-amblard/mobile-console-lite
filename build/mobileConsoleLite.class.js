@@ -429,7 +429,7 @@ var Idebug = function () {
         key: 'clearConsole',
         value: function clearConsole() {
             this.consoleWrap.el.textContent = "";
-            this.line = 0;
+            this.consoleCount.content = 0;
         }
     }, {
         key: 'toggleConsole',
