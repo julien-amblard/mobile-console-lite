@@ -200,9 +200,11 @@ var Idebug = function () {
             events: [],
             css: {
                 default: {
-                    padding: "15px",
+                    padding: "0",
+                    margin: 0,
                     height: "100%",
                     'max-height': "200px",
+                    color: "#3c3737",
                     'background-color': "white",
                     'overflow-y': 'scroll'
                 }
@@ -216,7 +218,7 @@ var Idebug = function () {
             events: [],
             css: {
                 default: {
-                    posititon: "relative",
+                    position: "relative",
                     display: "block",
                     padding: "5px 25px"
                 }
@@ -224,7 +226,7 @@ var Idebug = function () {
         };
 
         this.consoleCount = {
-            class: 'consoleLine',
+            class: 'consoleCount',
             el: "span",
             content: 0,
             events: [],
@@ -233,8 +235,9 @@ var Idebug = function () {
                     position: "absolute",
                     height: "100%",
                     left: "0",
+                    top: "0",
                     'background-color': "#efeeee",
-                    padding: "0 5px",
+                    padding: "5px",
                     color: "#9c9b9b"
                 }
             }
@@ -305,33 +308,37 @@ var Idebug = function () {
         value: function debug(_msg) {
             var oDocFragment = document.createDocumentFragment();
             for (var key in arguments) {
-                var msg = document.createElement('span');
-                msg.style.display = 'block';
-                msg.innerHTML = this.line + " : " + this.buildLine(arguments[key]);
-                oDocFragment.appendChild(msg);
+                var line = this.getLine();
+                var msg = this.getMsg(arguments[key]);
+                line.appendChild(msg);
+                oDocFragment.appendChild(line);
             }
             this.consoleWrap.el.appendChild(oDocFragment);
-            this.line++;
         }
     }, {
-        key: "buildLine",
-        value: function buildLine(_msg) {
-            var _isIndent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-            var sReturn = "",
-                _sTab = void 0;
-
+        key: "getLine",
+        value: function getLine() {
+            var el = this.consoleLine.el.cloneNode(true);
+            this.consoleCount.content++;
+            this.consoleCount.el.innerHTML = this.consoleCount.content;
+            el.appendChild(this.consoleCount.el.cloneNode(true));
+            return el;
+        }
+    }, {
+        key: "getMsg",
+        value: function getMsg(_msg) {
+            var $return = document.createElement('span');
             var sConst = _msg.constructor + '',
                 oRegex = /(function |\(\) \{ \[native code\] \})/g,
                 sName = sConst.replace(oRegex, '');
 
-            sReturn = sName + " " + JSON.stringify(_msg, null, 2) + "";
+            $return.innerHTML = sName + " " + JSON.stringify(_msg, null, 2) + "";
 
-            if (sName == 'Function') {
-                sReturn = sName + ' ' + _msg;
+            if (sName === 'Function') {
+                $return.innerHTML = sName + ' ' + _msg;
             }
 
-            return sReturn;
+            return $return;
         }
     }, {
         key: "clearConsole",
