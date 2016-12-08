@@ -268,6 +268,7 @@ var Idebug = function () {
                     display: "block",
                     padding: "5px 25px",
                     margin: 0,
+                    'line-height': "20px",
                     '$:nth-child(even)': {
                         'background-color': "#f7f7f7"
                     }
