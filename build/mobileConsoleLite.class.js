@@ -261,7 +261,10 @@ var Idebug = function () {
                     position: "relative",
                     display: "block",
                     padding: "5px 25px",
-                    margin: 0
+                    margin: 0,
+                    '$:nth-child(even)': {
+                        'background-color': "#f7f7f7"
+                    }
                 }
             }
         };
