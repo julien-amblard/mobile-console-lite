@@ -15,6 +15,62 @@ function mobileAndTabletcheck() {
     })(navigator.userAgent || navigator.vendor || window.opera);
     return check;
 };
+
+/***********************************************
+  ____  _   _ ___ _     ____  _____ ____
+ | __ )| | | |_ _| |   |  _ \| ____|  _ \
+ |  _ \| | | || || |   | | | |  _| | |_) |
+ | |_) | |_| || || |___| |_| | |___|  _ <
+ |____/ \___/|___|_____|____/|_____|_| \_\
+*************************************************/
+
+var domBuilder = function () {
+    function domBuilder() {
+        _classCallCheck(this, domBuilder);
+
+        this.cssBuilder = new cssBuilder();
+    }
+
+    _createClass(domBuilder, [{
+        key: 'buildElemes',
+        value: function buildElemes(obj) {
+
+            obj.dom = this.getDom(obj);
+
+            this.getCss(obj, obj.dom, 'default');
+            this.getEvents(obj, obj.dom);
+
+            return obj.dom;
+        }
+    }, {
+        key: 'getDom',
+        value: function getDom(obj) {
+            var $el = document.createElement(obj.el);
+            $el.innerHTML = obj.content;
+            return $el;
+        }
+    }, {
+        key: 'getCss',
+        value: function getCss(obj, dom) {
+            var key = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'default';
+
+            dom.className = key + '_' + obj.class;
+            this.cssBuilder.addStyle('.' + dom.className, obj.css[key]);
+            return this;
+        }
+    }, {
+        key: 'getEvents',
+        value: function getEvents(obj, dom) {
+            var i = obj.events.length - 1;
+            for (; i >= 0; i--) {
+                dom.addEventListener(obj.events[i].name, obj.events[i].fn);
+            }
+            return this;
+        }
+    }]);
+
+    return domBuilder;
+}();
 /***********************************************
   ____  _   _ ___ _     ____  _____ ____
  | __ )| | | |_ _| |   |  _ \| ____|  _ \
@@ -89,21 +145,27 @@ var cssBuilder = function () {
     return cssBuilder;
 }();
 
+/*********************************************
+  ___    _      _
+ |_ _|__| | ___| |__  _   _  __ _
+  | |/ _` |/ _ \ '_ \| | | |/ _` |
+  | | (_| |  __/ |_) | |_| | (_| |
+ |___\__,_|\___|_.__/ \__,_|\__, |
+                            |___/
+*********************************************/
+
 var Idebug = function () {
     function Idebug() {
         var bForce = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
         _classCallCheck(this, Idebug);
 
-        var oFragmentConsole = document.createDocumentFragment();
-        var oFragmentTools = document.createDocumentFragment();
-
         if (!mobileAndTabletcheck() && !bForce) {
             return false;
         }
 
         this.objects = [];
-        this.cssBuilder = new cssBuilder();
+        this.domBuilder = new domBuilder();
         console.log = this.debug.bind(this);
 
         this.console = {
@@ -287,85 +349,41 @@ var Idebug = function () {
             }
         };
 
-        this.objects.push(this.console);
-        this.objects.push(this.consoleTools);
-        this.objects.push(this.consoleWrap);
-        this.objects.push(this.consoleLine);
-        this.objects.push(this.consoleCount);
-        this.objects.push(this.clear);
-        this.objects.push(this.toggle);
-        this.objects.push(this.expand);
+        this.domBuilder.buildElemes(this.console);
+        this.domBuilder.buildElemes(this.consoleTools);
+        this.domBuilder.buildElemes(this.consoleLine);
+        this.domBuilder.buildElemes(this.consoleCount);
 
-        this.buildElemes();
+        this.consoleTools.dom.appendChild(this.domBuilder.buildElemes(this.clear));
+        this.consoleTools.dom.appendChild(this.domBuilder.buildElemes(this.toggle));
+        this.consoleTools.dom.appendChild(this.domBuilder.buildElemes(this.expand));
 
-        oFragmentTools.appendChild(this.clear.el);
-        oFragmentTools.appendChild(this.toggle.el);
-        oFragmentTools.appendChild(this.expand.el);
-        this.consoleTools.el.appendChild(oFragmentTools);
+        this.console.dom.appendChild(this.consoleTools.dom);
+        this.console.dom.appendChild(this.domBuilder.buildElemes(this.consoleWrap));
 
-        oFragmentConsole.appendChild(this.consoleTools.el);
-        oFragmentConsole.appendChild(this.consoleWrap.el);
-        this.console.el.appendChild(oFragmentConsole);
+        document.body.appendChild(this.console.dom);
 
-        document.body.appendChild(this.console.el);
+        this.line = 0;
     }
 
     _createClass(Idebug, [{
-        key: 'buildElemes',
-        value: function buildElemes() {
-            var i = this.objects.length - 1;
-            for (; i >= 0; i--) {
-                this.objects[i].el = this.getDom(this.objects[i]);
-                this.objects[i].el = this.getCss(this.objects[i], 'default');
-                this.objects[i].el = this.getEvents(this.objects[i]);
-            }
-        }
-    }, {
-        key: 'getDom',
-        value: function getDom(obj) {
-            var $el = document.createElement(obj.el);
-            $el.innerHTML = obj.content;
-            return $el;
-        }
-    }, {
-        key: 'getCss',
-        value: function getCss(obj) {
-            var key = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
-
-            obj.el.className = key + '_' + obj.class;
-            this.cssBuilder.addStyle('.' + obj.el.className, obj.css[key]);
-            return obj.el;
-        }
-    }, {
-        key: 'getEvents',
-        value: function getEvents(obj) {
-            var i = obj.events.length - 1;
-            for (; i >= 0; i--) {
-                obj.el.addEventListener(obj.events[i].name, obj.events[i].fn);
-            }
-            return obj.el;
-        }
-    }, {
         key: 'debug',
-        value: function debug(_msg) {
-            var oDocFragment = document.createDocumentFragment();
-            console.time('build');
+        value: function debug() {
+
             for (var key in arguments) {
                 var line = this.getLine();
                 var msg = this.getMsg(arguments[key]);
                 line.appendChild(msg);
-                oDocFragment.appendChild(line);
+                this.consoleWrap.dom.appendChild(line);
             }
-            this.consoleWrap.el.appendChild(oDocFragment);
-            console.timeEnd('build');
         }
     }, {
         key: 'getLine',
         value: function getLine() {
-            var el = this.consoleLine.el.cloneNode(true);
+            var el = this.consoleLine.dom.cloneNode(true);
             this.consoleCount.content++;
-            this.consoleCount.el.textContent = this.consoleCount.content;
-            el.appendChild(this.consoleCount.el.cloneNode(true));
+            this.consoleCount.dom.textContent = this.consoleCount.content;
+            el.appendChild(this.consoleCount.dom.cloneNode(true));
             return el;
         }
     }, {
@@ -373,42 +391,43 @@ var Idebug = function () {
         value: function getMsg(_msg) {
             var $return = document.createElement('span');
             var sConst = _msg.constructor + '',
+                sReturn = '',
                 oRegex = /(function |\(\) \{ \[native code\] \})/g,
                 sName = sConst.replace(oRegex, '');
 
-            $return.innerHTML = sName + " " + JSON.stringify(_msg, null, 2) + "";
+            sReturn = sName + " " + JSON.stringify(_msg, null, 2) + "";
 
             if (sName === 'Function') {
-                $return.innerHTML = sName + ' ' + _msg;
+                sReturn = sName + ' ' + _msg;
             }
+
+            $return.insertAdjacentText('beforeend', sReturn);
 
             return $return;
         }
     }, {
         key: 'clearConsole',
         value: function clearConsole() {
-            this.consoleWrap.el.textContent = "";
+            this.consoleWrap.dom.textContent = "";
             this.line = 0;
         }
     }, {
         key: 'toggleConsole',
         value: function toggleConsole() {
-            this.console.el.classList.remove('expand');
-            this.console.el.classList.toggle('close');
+            this.console.dom.classList.toggle('close');
         }
     }, {
         key: 'expandConsole',
         value: function expandConsole() {
-            this.console.el.classList.remove('close');
-            this.console.el.classList.toggle('expand');
+            this.console.dom.classList.toggle('expand');
         }
     }]);
 
     return Idebug;
 }();
 
+console.time('Idebug');
 var debug = new Idebug(true);
-
 console.log('test', 'test 2');
 console.log(['test 3', 'test 4', 2, { prenom: 'julien' }]);
 console.log({
@@ -420,3 +439,4 @@ var fn = function fn() {
     2 * 3;
 };
 console.log(fn);
+console.timeEnd('Idebug');
