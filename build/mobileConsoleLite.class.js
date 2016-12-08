@@ -243,8 +243,7 @@ var Idebug = function () {
                 default: {
                     padding: "0",
                     margin: 0,
-                    height: "100%",
-                    'max-height': "200px",
+                    height: "calc( 100% - 40px )",
                     color: "#3c3737",
                     'background-color': "white",
                     'overflow-y': 'scroll'
