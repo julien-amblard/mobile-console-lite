@@ -298,8 +298,6 @@ class Idebug {
 
         document.body.appendChild( this.console.el );
 
-        this.line = 0;
-
     }
     buildElemes () {
         var i = this.objects.length - 1;
@@ -332,6 +330,7 @@ class Idebug {
 
     debug ( _msg ) {
         var oDocFragment = document.createDocumentFragment();
+        console.time('build');
         for( let key in arguments ){     
             let line = this.getLine();   
             let msg = this.getMsg( arguments[key] );
@@ -339,16 +338,7 @@ class Idebug {
             oDocFragment.appendChild( line );
         }
         this.consoleWrap.el.appendChild( oDocFragment );
-/*
-=======
-    debug () {
-
-        for( let key in arguments ){
-            let msg  = '<pre class="line">'+this.line + '</pre><pre class="code">' + this.buildMessage( arguments[key] )+'</pre>';
-            this.consoleWrap.el.insertAdjacentHTML( 'beforeend', msg);
-            this.line++;
-        }
->>>>>>> refs/remotes/origin/fragment*/
+        console.timeEnd('build');
     }
 
     getLine () {
@@ -380,11 +370,13 @@ class Idebug {
     }
 
     toggleConsole(){
+        this.console.el.classList.remove('expand');
         this.console.el.classList.toggle('close');
     }
 
     expandConsole () {
-      this.console.el.classList.toggle('expand');
+        this.console.el.classList.remove('close');
+        this.console.el.classList.toggle('expand');
     }
 
 }
