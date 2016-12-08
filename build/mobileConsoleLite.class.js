@@ -244,6 +244,22 @@ var Idebug = function () {
                     '.expand $': {
                         'max-height': "90vh"
                     },
+
+                    '$ .line': {
+                        display: "inline-block",
+                        width: "5%",
+                        'box-sizing': "border-box",
+                        'border-top': "1px solid #eee",
+                        'vertical-align': "top"
+                    },
+
+                    '$ .code': {
+                        display: "inline-block",
+                        'box-sizing': "border-box",
+                        width: "95%",
+                        'border-top': "1px solid #eee"
+                    },
+
                     height: "100%",
                     'max-height': "300px",
                     'background-color': "white",
@@ -315,7 +331,7 @@ var Idebug = function () {
         value: function debug() {
 
             for (var key in arguments) {
-                var msg = "<p><pre>" + this.line + "</pre><pre>" + this.buildMessage(arguments[key]) + "</pre></p>";
+                var msg = '<pre class="line">' + this.line + '</pre><pre class="code">' + this.buildMessage(arguments[key]) + '</pre>';
                 this.consoleWrap.el.insertAdjacentHTML('beforeend', msg);
                 this.line++;
             }
