@@ -138,6 +138,9 @@ class Idebug {
         this.objects    = [];
         this.domBuilder = new domBuilder();
         console.log     = this.debug.bind(this);
+        window.addEventListener('error', function(e){
+            e.preventDefault();
+        })
         window.onerror  = this.errorCatcher.bind(this);
 
 
@@ -468,6 +471,8 @@ class Idebug {
 
         this.consoleWrap.dom.appendChild( oDocFragment );
         this.consoleWrap.dom.scrollTop = this.consoleWrap.dom.scrollHeight;
+
+        return false;
     }
 
 

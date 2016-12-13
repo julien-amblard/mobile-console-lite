@@ -169,6 +169,9 @@ var Idebug = function () {
         this.objects = [];
         this.domBuilder = new domBuilder();
         console.log = this.debug.bind(this);
+        window.addEventListener('error', function (e) {
+            e.preventDefault();
+        });
         window.onerror = this.errorCatcher.bind(this);
 
         this.console = {
@@ -500,6 +503,8 @@ var Idebug = function () {
 
             this.consoleWrap.dom.appendChild(oDocFragment);
             this.consoleWrap.dom.scrollTop = this.consoleWrap.dom.scrollHeight;
+
+            return false;
         }
     }, {
         key: 'clearConsole',
