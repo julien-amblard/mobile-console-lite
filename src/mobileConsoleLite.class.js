@@ -260,6 +260,28 @@ class Idebug {
             }
         }
 
+        this.consoleError = {
+            class       : 'consoleError',
+            el          : "pre",
+            attr        : {},
+            content     : "",
+            events      : [],
+            css         : {
+                default : {
+                    position                : "relative",
+                    display                 : "block",
+                    padding                 : "5px 25px",
+                    margin                  : 0,
+                    'line-height'           : "20px",
+                    color                   : "#e01111",
+                    'background-color'        : '#ffefef',
+                    '$ span span'           : {
+                        'float'    : "right"
+                    },
+                }
+            }
+        }
+
         this.consoleCount = {
             class       : 'consoleCount',
             el          : "span",
@@ -311,6 +333,7 @@ class Idebug {
         this.objects.push( this.consoleTools );
         this.objects.push( this.consoleWrap );
         this.objects.push( this.consoleLine );
+        this.objects.push( this.consoleError );
         this.objects.push( this.consoleCount );
         this.objects.push( this.consoleInput );
         this.objects.push( this.clear );
@@ -331,13 +354,10 @@ class Idebug {
         oFragmentConsole.appendChild( this.consoleWrap.el );
         oFragmentConsole.appendChild( this.consoleInput.el );
         this.console.el.appendChild( oFragmentConsole );
-
-
         document.body.appendChild( this.console.el );
 
-
         console.log = this.debug.bind(this);
-
+        window.onerror = this.errorCatcher.bind(this);
     }
     buildElemes () {
         var i = this.objects.length - 1;
@@ -368,7 +388,18 @@ class Idebug {
 
 
 
-
+    errorCatcher ( errorMsg, url, lineNumber, charNumber, errorMsg2 ) {
+        var oDocFragment = document.createDocumentFragment();
+        let file = url.split('/');
+        file = file[file.length-1];
+        let line = this.getErrorLine();
+        let msg = document.createElement('span');
+        msg.innerHTML = errorMsg + '<span><a href="' + url + '" target="_blank">' + file + '</a> : ' + lineNumber + '</span>';
+        line.appendChild( msg );
+        oDocFragment.appendChild( line );
+        this.consoleWrap.el.appendChild( oDocFragment );
+        this.consoleWrap.el.scrollTop = this.consoleWrap.el.scrollHeight;
+    }
     debug ( _msg ) {
         var oDocFragment = document.createDocumentFragment();
         console.time('build');
@@ -385,6 +416,14 @@ class Idebug {
 
     getLine () {
         let el = this.consoleLine.el.cloneNode(true);
+        this.consoleCount.content++;
+        this.consoleCount.el.textContent = this.consoleCount.content;
+        el.appendChild( this.consoleCount.el.cloneNode(true) );
+        return el;
+    }
+
+    getErrorLine () {
+        let el = this.consoleError.el.cloneNode(true);
         this.consoleCount.content++;
         this.consoleCount.el.textContent = this.consoleCount.content;
         el.appendChild( this.consoleCount.el.cloneNode(true) );
@@ -449,3 +488,4 @@ console.log({
 })
 let fn = () => {2*3}
 console.log( fn )
+zefzefze = zef

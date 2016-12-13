@@ -276,6 +276,28 @@ var Idebug = function () {
             }
         };
 
+        this.consoleError = {
+            class: 'consoleError',
+            el: "pre",
+            attr: {},
+            content: "",
+            events: [],
+            css: {
+                default: {
+                    position: "relative",
+                    display: "block",
+                    padding: "5px 25px",
+                    margin: 0,
+                    'line-height': "20px",
+                    color: "#e01111",
+                    'background-color': '#ffefef',
+                    '$ span span': {
+                        'float': "right"
+                    }
+                }
+            }
+        };
+
         this.consoleCount = {
             class: 'consoleCount',
             el: "span",
@@ -326,6 +348,7 @@ var Idebug = function () {
         this.objects.push(this.consoleTools);
         this.objects.push(this.consoleWrap);
         this.objects.push(this.consoleLine);
+        this.objects.push(this.consoleError);
         this.objects.push(this.consoleCount);
         this.objects.push(this.consoleInput);
         this.objects.push(this.clear);
@@ -343,10 +366,10 @@ var Idebug = function () {
         oFragmentConsole.appendChild(this.consoleWrap.el);
         oFragmentConsole.appendChild(this.consoleInput.el);
         this.console.el.appendChild(oFragmentConsole);
-
         document.body.appendChild(this.console.el);
 
         console.log = this.debug.bind(this);
+        window.onerror = this.errorCatcher.bind(this);
     }
 
     _createClass(Idebug, [{
@@ -387,6 +410,20 @@ var Idebug = function () {
             return obj.el;
         }
     }, {
+        key: 'errorCatcher',
+        value: function errorCatcher(errorMsg, url, lineNumber, charNumber, errorMsg2) {
+            var oDocFragment = document.createDocumentFragment();
+            var file = url.split('/');
+            file = file[file.length - 1];
+            var line = this.getErrorLine();
+            var msg = document.createElement('span');
+            msg.innerHTML = errorMsg + '<span><a href="' + url + '" target="_blank">' + file + '</a> : ' + lineNumber + '</span>';
+            line.appendChild(msg);
+            oDocFragment.appendChild(line);
+            this.consoleWrap.el.appendChild(oDocFragment);
+            this.consoleWrap.el.scrollTop = this.consoleWrap.el.scrollHeight;
+        }
+    }, {
         key: 'debug',
         value: function debug(_msg) {
             var oDocFragment = document.createDocumentFragment();
@@ -405,6 +442,15 @@ var Idebug = function () {
         key: 'getLine',
         value: function getLine() {
             var el = this.consoleLine.el.cloneNode(true);
+            this.consoleCount.content++;
+            this.consoleCount.el.textContent = this.consoleCount.content;
+            el.appendChild(this.consoleCount.el.cloneNode(true));
+            return el;
+        }
+    }, {
+        key: 'getErrorLine',
+        value: function getErrorLine() {
+            var el = this.consoleError.el.cloneNode(true);
             this.consoleCount.content++;
             this.consoleCount.el.textContent = this.consoleCount.content;
             el.appendChild(this.consoleCount.el.cloneNode(true));
@@ -479,3 +525,4 @@ var fn = function fn() {
     2 * 3;
 };
 console.log(fn);
+zefzefze = zef;
