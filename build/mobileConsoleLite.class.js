@@ -166,6 +166,8 @@ var Idebug = function () {
             return false;
         }
 
+        this.aJsCmdHistory = [];
+        this.iJsCmdHistoryState = -1;
         this.objects = [];
         this.domBuilder = new domBuilder();
         console.log = this.debug.bind(this);
@@ -436,7 +438,6 @@ var Idebug = function () {
     _createClass(Idebug, [{
         key: 'debug',
         value: function debug() {
-
             console.time('build');
             for (var key in arguments) {
                 var line = this.getLine();
@@ -526,6 +527,8 @@ var Idebug = function () {
         key: 'execJsDispatch',
         value: function execJsDispatch(e) {
             if (e.keyCode === 13) this.execJsCmd();
+            if (e.keyCode === 38) this.getPrevCmd();
+            if (e.keyCode === 40) this.getNextCmd();
         }
     }, {
         key: 'execJsCmd',
@@ -533,6 +536,26 @@ var Idebug = function () {
             var cmd = this.consoleInput.dom.value;
             eval(cmd);
             this.clearExec();
+            this.aJsCmdHistory.push(cmd);
+            this.iJsCmdHistoryState = -1;
+        }
+    }, {
+        key: 'getPrevCmd',
+        value: function getPrevCmd() {
+            this.iJsCmdHistoryState++;
+            var key = this.aJsCmdHistory.length - 1 - this.iJsCmdHistoryState;
+            if (typeof this.aJsCmdHistory[key] === "undefined") {
+                this.iJsCmdHistoryState = 0;
+                key = this.aJsCmdHistory.length - 1 - this.iJsCmdHistoryState;
+            }
+            this.consoleInput.dom.value = this.aJsCmdHistory[key];
+        }
+    }, {
+        key: 'getNextCmd',
+        value: function getNextCmd() {
+            this.iJsCmdHistoryState = this.iJsCmdHistoryState > 0 ? this.iJsCmdHistoryState - 1 : this.aJsCmdHistory.length - 1;
+            var sVal = this.aJsCmdHistory[this.iJsCmdHistoryState] || "";
+            this.consoleInput.dom.value = sVal;
         }
     }, {
         key: 'clearExec',
