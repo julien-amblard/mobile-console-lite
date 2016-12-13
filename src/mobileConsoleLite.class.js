@@ -444,14 +444,28 @@ class Idebug {
     }
 
     errorCatcher ( errorMsg, url, lineNumber, charNumber, errorMsg2 ) {
-        var oDocFragment = document.createDocumentFragment();
-        let file = url.split('/');
+
+        var oDocFragment = document.createDocumentFragment(),
+            file         = url.split('/'),
+            line         = this.getLine( this.consoleError),
+            spanMsg      = document.createElement('span'),
+            spanFile     = document.createElement('span'),
+            lienFile     = document.createElement('a');
+
         file = file[file.length-1];
-        let line = this.getLine( this.consoleError);
-        let msg = document.createElement('span');
-        msg.innerHTML = errorMsg + '<span><a href="' + url + '" target="_blank">' + file + '</a> : ' + lineNumber + '</span>';
-        line.appendChild( msg );
+
+        lienFile.textContent = file;
+        lienFile.setAttribute('href', url);
+        lienFile.setAttribute('target', '_blank');
+        spanFile.appendChild( lienFile);
+
+        spanMsg.appendChild( spanFile);
+        spanMsg.insertAdjacentText('afterbegin',errorMsg);
+        spanFile.insertAdjacentText('beforeend' , ':' + lineNumber);
+
+        line.appendChild( spanMsg );
         oDocFragment.appendChild( line );
+
         this.consoleWrap.dom.appendChild( oDocFragment );
         this.consoleWrap.dom.scrollTop = this.consoleWrap.dom.scrollHeight;
     }
@@ -497,3 +511,4 @@ console.log({
 })
 let fn = () => {2*3}
 console.log( fn );
+qsdqsd= qsdqs

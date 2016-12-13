@@ -446,17 +446,9 @@ var Idebug = function () {
         }
     }, {
         key: 'getLine',
-        value: function getLine() {
-            var el = this.consoleLine.dom.cloneNode(true);
-            this.consoleCount.content++;
-            this.consoleCount.dom.textContent = this.consoleCount.content;
-            el.appendChild(this.consoleCount.dom.cloneNode(true));
-            return el;
-        }
-    }, {
-        key: 'getErrorLine',
-        value: function getErrorLine() {
-            var el = this.consoleError.dom.cloneNode(true);
+        value: function getLine(_elConsole) {
+            var elConsole = _elConsole || this.consoleLine,
+                el = elConsole.dom.cloneNode(true);
             this.consoleCount.content++;
             this.consoleCount.dom.textContent = this.consoleCount.content;
             el.appendChild(this.consoleCount.dom.cloneNode(true));
@@ -484,14 +476,28 @@ var Idebug = function () {
     }, {
         key: 'errorCatcher',
         value: function errorCatcher(errorMsg, url, lineNumber, charNumber, errorMsg2) {
-            var oDocFragment = document.createDocumentFragment();
-            var file = url.split('/');
+
+            var oDocFragment = document.createDocumentFragment(),
+                file = url.split('/'),
+                line = this.getLine(this.consoleError),
+                spanMsg = document.createElement('span'),
+                spanFile = document.createElement('span'),
+                lienFile = document.createElement('a');
+
             file = file[file.length - 1];
-            var line = this.getErrorLine();
-            var msg = document.createElement('span');
-            msg.innerHTML = errorMsg + '<span><a href="' + url + '" target="_blank">' + file + '</a> : ' + lineNumber + '</span>';
-            line.appendChild(msg);
+
+            lienFile.textContent = file;
+            lienFile.setAttribute('href', url);
+            lienFile.setAttribute('target', '_blank');
+            spanFile.appendChild(lienFile);
+
+            spanMsg.appendChild(spanFile);
+            spanMsg.insertAdjacentText('afterbegin', errorMsg);
+            spanFile.insertAdjacentText('beforeend', ':' + lineNumber);
+
+            line.appendChild(spanMsg);
             oDocFragment.appendChild(line);
+
             this.consoleWrap.dom.appendChild(oDocFragment);
             this.consoleWrap.dom.scrollTop = this.consoleWrap.dom.scrollHeight;
         }
@@ -545,4 +551,4 @@ var fn = function fn() {
     2 * 3;
 };
 console.log(fn);
-qsdmlkqsmdl = qsd;
+qsdqsd = qsdqs;
