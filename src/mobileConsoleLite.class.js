@@ -135,6 +135,8 @@ class Idebug {
           return false;
         }
 
+        this.aJsCmdHistory = [];
+        this.iJsCmdHistoryState = -1;
         this.objects    = [];
         this.domBuilder = new domBuilder();
         console.log     = this.debug.bind(this);
@@ -407,7 +409,6 @@ class Idebug {
     }
 
     debug () {
-
         console.time('build');
         for( let key in arguments ){
             let line = this.getLine();
@@ -492,12 +493,32 @@ class Idebug {
 
     execJsDispatch ( e ) {
         if( e.keyCode === 13 ) this.execJsCmd();
+        if( e.keyCode === 38 ) this.getPrevCmd();
+        if( e.keyCode === 40 ) this.getNextCmd();
     }
 
     execJsCmd () {
         let cmd = this.consoleInput.dom.value;
         eval(cmd);
         this.clearExec();
+        this.aJsCmdHistory.push( cmd );
+        this.iJsCmdHistoryState = -1;
+    }
+
+    getPrevCmd () {
+        this.iJsCmdHistoryState++;
+        let key = ( this.aJsCmdHistory.length - 1 ) - this.iJsCmdHistoryState;
+        if( typeof this.aJsCmdHistory[key] === "undefined" ){
+            this.iJsCmdHistoryState = 0;
+            key = ( this.aJsCmdHistory.length - 1 ) - this.iJsCmdHistoryState;
+        }
+        this.consoleInput.dom.value = this.aJsCmdHistory[ key ];
+    }
+
+    getNextCmd () {
+        this.iJsCmdHistoryState = ( this.iJsCmdHistoryState > 0 ) ? this.iJsCmdHistoryState - 1 : this.aJsCmdHistory.length - 1;
+        let sVal = this.aJsCmdHistory[ this.iJsCmdHistoryState ] || "";
+        this.consoleInput.dom.value = sVal;
     }
 
     clearExec () {
