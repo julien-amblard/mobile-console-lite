@@ -141,6 +141,7 @@ class Idebug {
         this.console = {
             class       : 'consoleLog',
             el          : "div",
+            attr        : {},
             events      : [],
             content     : "",
             css         : {
@@ -161,7 +162,7 @@ class Idebug {
                     width               : "100%",
                     height              : "300px",
                     'background-color'  : "#e4e3e3",
-                    padding             : "0 1px 1px",
+                    padding             : "0 0 30px 0",
                     margin              : "0",
                     'box-sizing'        : "border-box",
                     'max-height'        : "300px",
@@ -174,6 +175,7 @@ class Idebug {
         this.consoleTools = {
             class       : 'consoleLogTools',
             el          : "div",
+            attr        : {},
             events      : [],
             content     : "",
             css         : {
@@ -191,6 +193,7 @@ class Idebug {
         this.clear = {
             class       : 'consoleClear',
             el          : "div",
+            attr        : {},
             content     : "vider",
             events      : [{
                 name    : 'click',
@@ -217,6 +220,7 @@ class Idebug {
         this.toggle = {
             class       : 'consoleToggle',
             el          : "div",
+            attr        : {},
             content     : "cacher",
             events      : [{
                 name    : 'click',
@@ -244,6 +248,7 @@ class Idebug {
         this.expand = {
             class       : 'consoleExpand',
             el          : "div",
+            attr        : {},
             content     : "agrandir",
             events      : [{
                 name    : 'click',
@@ -271,6 +276,7 @@ class Idebug {
         this.consoleWrap = {
             class       : 'consoleWrap',
             el          : "div",
+            attr        : {},
             content     : "",
             events      : [],
             css         : {
@@ -288,6 +294,7 @@ class Idebug {
         this.consoleLine = {
             class       : 'consoleLine',
             el          : "pre",
+            attr        : {},
             content     : "",
             events      : [],
             css         : {
@@ -296,8 +303,31 @@ class Idebug {
                     display                 : "block",
                     padding                 : "5px 25px",
                     margin                  : 0,
+                    'line-height'           : "20px",
                     '$:nth-child(even)'           : {
                         'background-color'    : "#f7f7f7"
+                    },
+                }
+            }
+        }
+
+        this.consoleError = {
+            class       : 'consoleError',
+            el          : "pre",
+            attr        : {},
+            content     : "",
+            events      : [],
+            css         : {
+                default : {
+                    position                : "relative",
+                    display                 : "block",
+                    padding                 : "5px 25px",
+                    margin                  : 0,
+                    'line-height'           : "20px",
+                    color                   : "#e01111",
+                    'background-color'        : '#ffefef',
+                    '$ span span'           : {
+                        'float'    : "right"
                     },
                 }
             }
@@ -306,6 +336,7 @@ class Idebug {
         this.consoleCount = {
             class       : 'consoleCount',
             el          : "span",
+            attr        : {},
             content     : 0,
             events      : [],
             css         : {
@@ -325,6 +356,32 @@ class Idebug {
         this.domBuilder.buildElemes( this.consoleTools);
         this.domBuilder.buildElemes( this.consoleLine);
         this.domBuilder.buildElemes( this.consoleCount);
+        this.consoleInput = {
+            class       : 'consoleInput',
+            el          : "input",
+            attr        : {
+                    'type' : 'text',
+                    placeholder : 'javascript...' 
+            },
+            content     : "",
+            events      : [{
+                name    : 'keyup',
+                fn      : this.execJsDispatch.bind(this)
+            }],
+            css         : {
+                default : {
+                    position            : "absolute",
+                    height              : "30px",
+                    width               : "100%",
+                    left                : "0",
+                    bottom              : "0",
+                    padding             : "5px 15px",
+                    color               : "#9c9b9b",
+                    'box-sizing'        : "border-box",
+                    border              : 0
+                }
+            }
+        }
 
         this.consoleTools.dom.appendChild( this.domBuilder.buildElemes( this.clear) );
         this.consoleTools.dom.appendChild( this.domBuilder.buildElemes( this.toggle) );
@@ -337,7 +394,55 @@ class Idebug {
 
         this.line = 0;
 
+<<<<<<<
+
+=======
+
+        oFragmentTools.appendChild( this.clear.el );
+        oFragmentTools.appendChild( this.toggle.el );
+        oFragmentTools.appendChild( this.expand.el );
+        this.consoleTools.el.appendChild( oFragmentTools );
+
+        oFragmentConsole.appendChild( this.consoleTools.el );
+        oFragmentConsole.appendChild( this.consoleWrap.el );
+        oFragmentConsole.appendChild( this.consoleInput.el );
+        this.console.el.appendChild( oFragmentConsole );
+        document.body.appendChild( this.console.el );
+
+        console.log = this.debug.bind(this);
+        window.onerror = this.errorCatcher.bind(this);
+>>>>>>>
     }
+<<<<<<<
+
+=======
+    buildElemes () {
+        var i = this.objects.length - 1;
+        for (; i >= 0; i--) {
+            this.objects[i].el = this.getDom( this.objects[i] );
+            this.objects[i].el = this.getCss( this.objects[i], 'default' );
+            this.objects[i].el = this.getEvents( this.objects[i] );
+        }
+    }
+    getDom ( obj ) {
+        let $el = document.createElement( obj.el );
+        $el.textContent = obj.content;
+        for( let key in obj.attr ) $el.setAttribute( key, obj.attr[key] );
+        return $el;
+    }
+    getCss ( obj, key = 'default' ) {
+        obj.el.className = key +'_'+ obj.class;
+        this.cssBuilder.addStyle( '.'+obj.el.className, obj.css[ key ]);
+        return obj.el;
+    }
+    getEvents ( obj ) {
+        var i = obj.events.length - 1;
+        for (; i >= 0; i--) {
+            obj.el.addEventListener( obj.events[ i ].name, obj.events[ i ].fn );
+        }
+        return obj.el;
+    }
+>>>>>>>
 
     debug () {
 
@@ -347,6 +452,13 @@ class Idebug {
             line.appendChild( msg );
             this.consoleWrap.dom.appendChild(  line );
         }
+<<<<<<<
+
+=======
+        this.consoleWrap.el.appendChild( oDocFragment );
+        this.consoleWrap.el.scrollTop = this.consoleWrap.el.scrollHeight;
+        console.timeEnd('build');
+>>>>>>>
     }
 
     getLine () {
@@ -354,6 +466,14 @@ class Idebug {
         this.consoleCount.content++;
         this.consoleCount.dom.textContent = this.consoleCount.content;
         el.appendChild( this.consoleCount.dom.cloneNode(true) );
+        return el;
+    }
+
+    getErrorLine () {
+        let el = this.consoleError.el.cloneNode(true);
+        this.consoleCount.content++;
+        this.consoleCount.el.textContent = this.consoleCount.content;
+        el.appendChild( this.consoleCount.el.cloneNode(true) );
         return el;
     }
 
@@ -376,8 +496,8 @@ class Idebug {
     }
 
     clearConsole() {
-        this.consoleWrap.dom.textContent = "";
-        this.line = 0;
+        this.consoleWrap.el.textContent = "";
+        this.consoleCount.content = 0;
     }
 
     toggleConsole(){
@@ -387,6 +507,19 @@ class Idebug {
     expandConsole () {
       this.console.dom.classList.toggle('expand');
     }
+
+
+    execJsDispatch ( e ) {
+        if( e.keyCode === 13 ) this.execJsCmd();
+    }
+        execJsCmd () {
+            let cmd = this.consoleInput.el.value;
+            eval(cmd);
+            this.clearExec();
+        }
+        clearExec () {
+            this.consoleInput.el.value = '';
+        }
 
 }
 
