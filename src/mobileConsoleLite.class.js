@@ -32,6 +32,8 @@ class domBuilder{
     getDom ( obj ) {
         let $el = document.createElement( obj.el );
         $el.innerHTML = obj.content;
+        for( let key in obj.attr ) $el.setAttribute( key, obj.attr[key] );
+
         return $el;
     }
     getCss ( obj, dom, key = 'default' ) {
@@ -135,7 +137,8 @@ class Idebug {
 
         this.objects    = [];
         this.domBuilder = new domBuilder();
-          console.log = this.debug.bind(this);
+        console.log     = this.debug.bind(this);
+        window.onerror  = this.errorCatcher.bind(this);
 
 
         this.console = {
@@ -170,7 +173,7 @@ class Idebug {
                     'font-size'         : "12px"
                 }
             }
-        }
+        };
 
         this.consoleTools = {
             class       : 'consoleLogTools',
@@ -187,7 +190,7 @@ class Idebug {
                     'box-sizing'        : "border-box",
                 }
             }
-        }
+        };
 
 
         this.clear = {
@@ -215,7 +218,7 @@ class Idebug {
                     cursor              : "pointer"
                 }
             }
-        }
+        };
 
         this.toggle = {
             class       : 'consoleToggle',
@@ -243,7 +246,7 @@ class Idebug {
                     cursor              : "pointer"
                 }
             }
-        }
+        };
 
         this.expand = {
             class       : 'consoleExpand',
@@ -271,7 +274,7 @@ class Idebug {
                     cursor              : "pointer"
                 }
             }
-        }
+        };
 
         this.consoleWrap = {
             class       : 'consoleWrap',
@@ -289,7 +292,7 @@ class Idebug {
                     'overflow-y'            : 'scroll'
                 }
             }
-        }
+        };
 
         this.consoleLine = {
             class       : 'consoleLine',
@@ -309,7 +312,7 @@ class Idebug {
                     },
                 }
             }
-        }
+        };
 
         this.consoleError = {
             class       : 'consoleError',
@@ -331,7 +334,7 @@ class Idebug {
                     },
                 }
             }
-        }
+        };
 
         this.consoleCount = {
             class       : 'consoleCount',
@@ -350,18 +353,14 @@ class Idebug {
                     color               : "#9c9b9b"
                 }
             }
-        }
+        };
 
-        this.domBuilder.buildElemes( this.console);
-        this.domBuilder.buildElemes( this.consoleTools);
-        this.domBuilder.buildElemes( this.consoleLine);
-        this.domBuilder.buildElemes( this.consoleCount);
         this.consoleInput = {
             class       : 'consoleInput',
             el          : "input",
             attr        : {
                     'type' : 'text',
-                    placeholder : 'javascript...' 
+                    placeholder : 'javascript...'
             },
             content     : "",
             events      : [{
@@ -383,97 +382,46 @@ class Idebug {
             }
         }
 
+        this.domBuilder.buildElemes( this.console);
+        this.domBuilder.buildElemes( this.consoleTools);
+        this.domBuilder.buildElemes( this.consoleLine);
+        this.domBuilder.buildElemes( this.consoleCount);
+        this.domBuilder.buildElemes( this.consoleInput);
+        this.domBuilder.buildElemes( this.consoleError);
+
+
         this.consoleTools.dom.appendChild( this.domBuilder.buildElemes( this.clear) );
         this.consoleTools.dom.appendChild( this.domBuilder.buildElemes( this.toggle) );
         this.consoleTools.dom.appendChild( this.domBuilder.buildElemes( this.expand) );
 
         this.console.dom.appendChild( this.consoleTools.dom );
+        this.console.dom.appendChild( this.consoleInput.dom );
         this.console.dom.appendChild( this.domBuilder.buildElemes( this.consoleWrap) );
 
         document.body.appendChild( this.console.dom );
 
         this.line = 0;
-
-<<<<<<<
-
-=======
-
-        oFragmentTools.appendChild( this.clear.el );
-        oFragmentTools.appendChild( this.toggle.el );
-        oFragmentTools.appendChild( this.expand.el );
-        this.consoleTools.el.appendChild( oFragmentTools );
-
-        oFragmentConsole.appendChild( this.consoleTools.el );
-        oFragmentConsole.appendChild( this.consoleWrap.el );
-        oFragmentConsole.appendChild( this.consoleInput.el );
-        this.console.el.appendChild( oFragmentConsole );
-        document.body.appendChild( this.console.el );
-
-        console.log = this.debug.bind(this);
-        window.onerror = this.errorCatcher.bind(this);
->>>>>>>
     }
-<<<<<<<
-
-=======
-    buildElemes () {
-        var i = this.objects.length - 1;
-        for (; i >= 0; i--) {
-            this.objects[i].el = this.getDom( this.objects[i] );
-            this.objects[i].el = this.getCss( this.objects[i], 'default' );
-            this.objects[i].el = this.getEvents( this.objects[i] );
-        }
-    }
-    getDom ( obj ) {
-        let $el = document.createElement( obj.el );
-        $el.textContent = obj.content;
-        for( let key in obj.attr ) $el.setAttribute( key, obj.attr[key] );
-        return $el;
-    }
-    getCss ( obj, key = 'default' ) {
-        obj.el.className = key +'_'+ obj.class;
-        this.cssBuilder.addStyle( '.'+obj.el.className, obj.css[ key ]);
-        return obj.el;
-    }
-    getEvents ( obj ) {
-        var i = obj.events.length - 1;
-        for (; i >= 0; i--) {
-            obj.el.addEventListener( obj.events[ i ].name, obj.events[ i ].fn );
-        }
-        return obj.el;
-    }
->>>>>>>
 
     debug () {
 
+        console.time('build');
         for( let key in arguments ){
             let line = this.getLine();
             let msg  = this.getMsg( arguments[key] );
             line.appendChild( msg );
             this.consoleWrap.dom.appendChild(  line );
         }
-<<<<<<<
-
-=======
-        this.consoleWrap.el.appendChild( oDocFragment );
-        this.consoleWrap.el.scrollTop = this.consoleWrap.el.scrollHeight;
+        this.consoleWrap.dom.scrollTop = this.consoleWrap.dom.scrollHeight;
         console.timeEnd('build');
->>>>>>>
     }
 
-    getLine () {
-        let el = this.consoleLine.dom.cloneNode(true);
+    getLine( _elConsole) {
+        var elConsole =  _elConsole|| this.consoleLine,
+            el        = elConsole.dom.cloneNode(true);
         this.consoleCount.content++;
         this.consoleCount.dom.textContent = this.consoleCount.content;
         el.appendChild( this.consoleCount.dom.cloneNode(true) );
-        return el;
-    }
-
-    getErrorLine () {
-        let el = this.consoleError.el.cloneNode(true);
-        this.consoleCount.content++;
-        this.consoleCount.el.textContent = this.consoleCount.content;
-        el.appendChild( this.consoleCount.el.cloneNode(true) );
         return el;
     }
 
@@ -495,8 +443,22 @@ class Idebug {
         return $return;
     }
 
+    errorCatcher ( errorMsg, url, lineNumber, charNumber, errorMsg2 ) {
+        var oDocFragment = document.createDocumentFragment();
+        let file = url.split('/');
+        file = file[file.length-1];
+        let line = this.getLine( this.consoleError);
+        let msg = document.createElement('span');
+        msg.innerHTML = errorMsg + '<span><a href="' + url + '" target="_blank">' + file + '</a> : ' + lineNumber + '</span>';
+        line.appendChild( msg );
+        oDocFragment.appendChild( line );
+        this.consoleWrap.dom.appendChild( oDocFragment );
+        this.consoleWrap.dom.scrollTop = this.consoleWrap.dom.scrollHeight;
+    }
+
+
     clearConsole() {
-        this.consoleWrap.el.textContent = "";
+        this.consoleWrap.dom.textContent = "";
         this.consoleCount.content = 0;
     }
 
@@ -512,18 +474,19 @@ class Idebug {
     execJsDispatch ( e ) {
         if( e.keyCode === 13 ) this.execJsCmd();
     }
-        execJsCmd () {
-            let cmd = this.consoleInput.el.value;
-            eval(cmd);
-            this.clearExec();
-        }
-        clearExec () {
-            this.consoleInput.el.value = '';
-        }
+
+    execJsCmd () {
+        let cmd = this.consoleInput.dom.value;
+        eval(cmd);
+        this.clearExec();
+    }
+
+    clearExec () {
+        this.consoleInput.dom.value = '';
+    }
 
 }
 
-console.time('Idebug');
 let debug = new Idebug( true);
 console.log( 'test', 'test 2' )
 console.log( ['test 3', 'test 4', 2, {prenom : 'julien'}] )
@@ -533,5 +496,4 @@ console.log({
     key3 : {'key4' : 1, 'key5' : "test", 'key6': {key7:"test"} }
 })
 let fn = () => {2*3}
-console.log( fn )
-console.timeEnd('Idebug');
+console.log( fn );
