@@ -462,15 +462,16 @@ var Idebug = function () {
         key: 'getMsg',
         value: function getMsg(_msg) {
             var $return = document.createElement('span');
-            var sConst = _msg.constructor + '',
+            var msg = _msg || 'undefined',
+                sConst = msg != 'undefined' ? msg.constructor + '' : msg,
                 sReturn = '',
                 oRegex = /(function |\(\) \{ \[native code\] \})/g,
                 sName = sConst.replace(oRegex, '');
 
-            sReturn = sName + " " + JSON.stringify(_msg, null, 2) + "";
+            sReturn = sName + " " + JSON.stringify(msg, null, 2) + "";
 
             if (sName === 'Function') {
-                sReturn = sName + ' ' + _msg;
+                sReturn = sName + ' ' + msg;
             }
 
             $return.insertAdjacentText('beforeend', sReturn);
@@ -534,6 +535,11 @@ var Idebug = function () {
         key: 'execJsCmd',
         value: function execJsCmd() {
             var cmd = this.consoleInput.dom.value;
+
+            if (!~cmd.indexOf('console.log')) {
+                cmd = "console.log(" + cmd + ")";
+            }
+
             eval(cmd);
             this.clearExec();
             this.aJsCmdHistory.push(cmd);
