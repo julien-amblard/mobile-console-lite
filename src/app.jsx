@@ -24,7 +24,7 @@ class MCL {
 			this._console.log( arguments )
 		}
 		hydrate(<MobileConsoleLight logs={this.logs} />, this.root)
-    } 
+	} 
 	createRoot () {
 		const $root = document.createElement("div")
 		document.body.appendChild($root)
