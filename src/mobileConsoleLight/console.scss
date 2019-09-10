@@ -3,7 +3,21 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	h1 {
-		color: red;
+	height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+	font-family: Menlo, monospace;
+	font-size: 13px;
+	.logItem {
+		display: block;
+		padding: 3px 15px;
+		margin: 0;
+		border-bottom: solid 1px #f0f0f0;
+	}
+	.text {
+		color: #555;
+	}
+	.int {
+		color: #1c00cf;
 	}
 }
