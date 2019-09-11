@@ -21,7 +21,7 @@ class MCL {
 	debug () {
 		for( let key in arguments ) {
 			this.logs.push( arguments[key] )
-			this._console.log( arguments )
+			this._console.log( arguments[key] )
 		}
 		hydrate(<MobileConsoleLight logs={this.logs} />, this.root)
 	} 

@@ -1,21 +1,16 @@
-import React, { useState } from "react"
+import React from "react"
+import dispatchComponent from "./types/dispatch"
 import "./console.scss"
 
-const TextLog = ({ log }) => {
-	return ( <span className="logItem text">{log}</span> )
-}
-const IntLog = ({ log }) => {
-	return ( <span className="logItem int">{log}</span> )
-}
+
 
 const MobileConsoleLight = props => {
 	return (
 		<div className="mobileConsoleLight">
 			{props.logs.map( (log, index) => (
-				<React.Fragment key={index}>
-					{ typeof log === "string" && <TextLog log={log} />}
-					{ typeof log === "number" && <IntLog log={log} />}
-				</React.Fragment>
+				<div className="logItem" key={index}>
+					{dispatchComponent(log)}
+				</div>
 			))}
 		</div>
 	)
