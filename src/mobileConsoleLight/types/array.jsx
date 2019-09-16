@@ -19,28 +19,48 @@ const ArrDetails = ({log}) => {
 	)
 }
 
-const ArrLog = ({log}) => {
+const arrLight = log => {
+	return (
+		<>Array({log.length})</>
+	)
+}
+
+const arrPlain = log => {
 	const [ open, setOpen ] = useState(false)
+	const toggle = () => setOpen(!open)
 	const classList = (() => {
 		const arr = ["arrow"]
 		if( open ) arr.push("down")
 		return arr.join(" ")
 	})()
-	const toggle = () => setOpen(!open)
-
 	return (
-		<span className="array" onClick={toggle}>
-
-			<span className={classList}>▶</span> 
-			({log.length}) 
-			[{log.map( (entry, index) => (
-				<React.Fragment key={index}>
-					{ dispatchComponent(entry) }
-					{index < (log.length - 1) ? ", " : "" }
-				</React.Fragment>
-			))}]
-
+		<>
+			<span onClick={toggle}>
+				<span className={classList}>▶</span> 
+				{ open ? arrLight(log) :
+					<>
+					({log.length}) 
+					[{log.map( (entry, index) => (
+						<React.Fragment key={index}>
+							{ dispatchComponent(entry, true) }
+							{index < (log.length - 1) ? ", " : "" }
+						</React.Fragment>
+					))}]
+					</>
+				}
+			</span>
 			{ open && <ArrDetails log={log} /> }
+		</>
+	)
+}
+
+const ArrLog = ({ log, light }) => {
+	return (
+		<span className="array">
+			{ light 
+				? arrLight(log)
+				: arrPlain(log)
+			}
 		</span>
 	)
 }
