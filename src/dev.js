@@ -14,7 +14,7 @@ console.log(
 	{
 		a: 1, b: 
 			{
-				c:1, d: [3,2,3], h: {
+				c:1, d: [3,2,3], j: null, h: {
 				a: false 
 			}
 		}
@@ -27,3 +27,9 @@ const fn = (params) => {
 	return a + b
 }
 console.log( fn );
+class ClassTest {
+	constructor() {}
+}
+console.log( ClassTest );
+console.log( undefined );
+console.log( null );
