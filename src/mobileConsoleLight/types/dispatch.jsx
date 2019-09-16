@@ -1,8 +1,8 @@
 import React from "react"
 
-import TextLog from "./text"
-import IntLog from "./int"
-import ArrLog from "./array"
+import TextLog from "./text/text"
+import IntLog from "./int/int"
+import ArrLog from "./array/array"
 
 export default (log, light = false) => {
 	if( typeof log === "string" ) return <TextLog log={log} />
