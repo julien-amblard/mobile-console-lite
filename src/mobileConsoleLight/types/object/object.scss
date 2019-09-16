@@ -1,0 +1,15 @@
+.mobileConsoleLight {
+	.object {
+		font-style: italic;
+		.key {
+			color: #3f3939;
+		}
+		.value {}
+		&Expand {
+			font-style: normal;
+			.objectLine {
+				padding: 2px 25px 0;
+			}
+		}
+	}
+}
