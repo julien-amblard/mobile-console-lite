@@ -3,6 +3,7 @@ import MobileConsoleLight from "./app"
 new MobileConsoleLight(document.querySelector("#app"))
 
 console.log( true )
+console.log( true, false )
 console.log( "string test" )
 console.log( 584584545848 )
 console.log( 584584545848 / .3 )
@@ -13,9 +14,16 @@ console.log(
 	{
 		a: 1, b: 
 			{
-				c:1, d: 3, h: {
+				c:1, d: [3,2,3], h: {
 				a: false 
 			}
 		}
 	} 
 )
+const fn = (params) => {
+	const a = "a"
+	const b = "b"
+
+	return a + b
+}
+console.log( fn );

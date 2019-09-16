@@ -1,0 +1,10 @@
+.mobileConsoleLight {
+	.func {
+        color: #555;
+        font-style: italic;
+        white-space: pre-wrap;
+        &Label {
+            color: #1c00cf;
+        }
+	}
+}
