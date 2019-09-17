@@ -5,7 +5,7 @@ const htmlWebpackPlugin = new HtmlWebpackPlugin({
 	filename: "./index.html"
 });
 module.exports = {
-	entry: path.join(__dirname, "src/dev.js"),
+	entry: path.join(__dirname, "demo/dev.js"),
 	output : {
 		path: path.resolve(__dirname,'demo/dist')
 	},

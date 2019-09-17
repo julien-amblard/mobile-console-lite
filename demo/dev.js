@@ -1,4 +1,4 @@
-import MobileConsoleLight from "./app"
+import MobileConsoleLight from "../src/app"
 
 new MobileConsoleLight(document.querySelector("#app"))
 

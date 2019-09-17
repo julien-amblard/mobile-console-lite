@@ -30,12 +30,11 @@ const config = {
 				test: /\.(css|scss)$/,
 				use: [
 					{ loader: 'style-loader' },
-					{ loader: 'css-loader', options: { minimize: true } },
+					{ loader: 'css-loader' },
 					{ loader: 'sass-loader' }
 				]
 			}
 		]
-	},
-	devtool: "source-map"
+	}
 }
 module.exports = config;
