@@ -5,14 +5,11 @@ import MobileConsoleLight from "./mobileConsoleLight/console"
 class MCL {
 	constructor( root, options ) {
 		this.catch()
-		this.init()
+		this.init(root)
 	}
-	init () {
+	init (root) {
 		this.logs = []
-		this.root = root instanceof HTMLElement 
-		? root
-		: this.createRoot();
-		
+		this.root = root instanceof HTMLElement ? root : this.createRoot()
 		this.renderApp()
 	}
 	catch () {
