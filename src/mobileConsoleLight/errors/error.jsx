@@ -4,9 +4,7 @@ import "./error.scss"
 const ErrorItem = ({ log }) => {
 	const { messageOrEvent, source, noligne, nocolonne, erreur } = log
 	const Erruer = erreur
-	
-	console.log( erreur.stack );
-	
+		
 	const sourceName = source.split("/").reverse()[0].replace("?", "")
 	return (
 		<div className="logItem errorItem">

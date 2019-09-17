@@ -4,10 +4,10 @@ import MobileConsoleLight from "./mobileConsoleLight/console"
 
 class MCL {
 	constructor( root, options ) {
-		// this._console = {
-		// 	log: console.log
-		// }
-		// console.log     = this.debug.bind(this);
+		this._console = {
+			log: console.log
+		}
+		console.log     = this.debug.bind(this);
 		this.logs = []
 		this.root = root instanceof HTMLElement 
 			? root
