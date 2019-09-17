@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react"
-import dispatchComponent from "./types/dispatch"
+import LogItem from "./log/item"
+import ErrorItem from "./errors/error"
 import "./console.scss"
 
 
@@ -13,9 +14,10 @@ const MobileConsoleLight = ({logs}) => {
 	return (
 		<div className="mobileConsoleLight" ref={$scroller}>
 			{logs.map( (log, index) => (
-				<div className="logItem" key={index}>
-					{dispatchComponent(log)}
-				</div>
+				<React.Fragment key={index} >
+					{ log.type === "log" && <LogItem log={log.stack} />}
+					{ log.type === "error" && <ErrorItem log={log.stack} />}
+				</React.Fragment>
 			))}
 		</div>
 	)

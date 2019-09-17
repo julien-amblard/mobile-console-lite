@@ -3,27 +3,15 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
+	padding-bottom: 30px;
 	height: 300px;
     overflow: hidden;
     overflow-y: scroll;
 	font-family: Menlo, monospace;
 	font-size: 13px;
-	.arrow {
-		display: inline-block;
-		padding-right: 5px;
-		color: #727272;
-		font-style: normal;
-		font-size: 11px;
-		&.down {
-			transform: rotate(90deg) translateX(3px) translateY(3px);
-		}
-	}
-	.logItem {
-		display: block;
-		padding: 3px 15px;
-		margin: 0;
-		border-bottom: solid 1px #f0f0f0;
-	}
+	cursor: default;
+	
+
 	.index {
 		color: #881391;
 	}
