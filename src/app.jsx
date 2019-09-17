@@ -4,40 +4,46 @@ import MobileConsoleLight from "./mobileConsoleLight/console"
 
 class MCL {
 	constructor( root, options ) {
-		this._console = {
-			log: console.log
-		}
-		console.log     = this.debug.bind(this);
+		this.catch()
+		this.init()
+	}
+	init () {
 		this.logs = []
 		this.root = root instanceof HTMLElement 
-			? root
-			: this.createRoot();
-
-		window.onerror  = this.errorCatcher.bind(this);
+		? root
+		: this.createRoot();
+		
 		this.renderApp()
+	}
+	catch () {
+		this._console = {
+			log: console.log,
+			warn: console.warn 
+		}
+		console.log     = this.consoleCatcher.bind(this);
+		window.onerror  = this.errorCatcher.bind(this);
 	}
 	renderApp () {
 		render(<MobileConsoleLight logs={this.logs} />, this.root)
 	}
-	debug () {
+	hydrateApp () {
+		hydrate(<MobileConsoleLight logs={this.logs} />, this.root)
+	}
+	consoleCatcher () {
 		for( let key in arguments ) {
 			this.logs.push( { type: "log", stack: arguments[key]} )
 			this._console.log( arguments[key] )
 		}
-		hydrate(<MobileConsoleLight logs={this.logs} />, this.root)
+		this.hydrateApp()
 	} 
+	errorCatcher (messageOrEvent, source, noligne, nocolonne, erreur) {
+		this.logs.push( { type: "error", stack: { messageOrEvent, source, noligne, nocolonne, erreur } } )
+		this.hydrateApp()
+	}
 	createRoot () {
 		const $root = document.createElement("div")
 		document.body.appendChild($root)
 		return $root
-	}
-	errorCatcher (messageOrEvent, source, noligne, nocolonne, erreur) {
-		// console.warn("messageOrEvent :", messageOrEvent)
-		// console.warn("source :", source)
-		// console.warn("noligne :", noligne, "nocolonne: ", nocolonne)
-		// console.warn("erreur :", erreur)
-		this.logs.push( { type: "error", stack: { messageOrEvent, source, noligne, nocolonne, erreur } } )
-		hydrate(<MobileConsoleLight logs={this.logs} />, this.root)
 	}
 }
 
