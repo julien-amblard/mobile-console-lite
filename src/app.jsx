@@ -17,7 +17,7 @@ class MCL {
 			log: console.log,
 			warn: console.warn 
 		}
-		console.log     = this.consoleCatcher.bind(this);
+		// console.log     = this.consoleCatcher.bind(this);
 		window.onerror  = this.errorCatcher.bind(this);
 	}
 	renderApp () {

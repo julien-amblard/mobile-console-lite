@@ -1,18 +1,14 @@
 import React from "react"
+import ErrorStack from "./errorStack"
+import ErrorLine from "./errorLine"
 import "./error.scss"
 
 const ErrorItem = ({ log }) => {
-	const { messageOrEvent, source, noligne, nocolonne, erreur } = log
-	const Erruer = erreur
-		
-	const sourceName = source.split("/").reverse()[0].replace("?", "")
+	const { messageOrEvent, source, noligne, nocolonne, erreur } = log	
 	return (
 		<div className="logItem errorItem">
-			{erreur.fileName}
-			<span className="errorStack">
-				{erreur.stack}
-			</span>
-			<span className="errorLine">{sourceName+":"+noligne}</span>
+			<ErrorStack stack={erreur.stack} />
+			<ErrorLine source={source} line={noligne} />
 		</div>
 	)
 }
