@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import LogItem from "./log/item"
 import ErrorItem from "./errors/error"
+import InputJS from "./input/input"
 import "./console.scss"
 
 
@@ -19,6 +20,7 @@ const MobileConsoleLight = ({logs}) => {
 					{ log.type === "error" && <ErrorItem log={log.stack} />}
 				</React.Fragment>
 			))}
+			<InputJS />
 		</div>
 	)
 }
