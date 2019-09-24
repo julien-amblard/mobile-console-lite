@@ -1,4 +1,4 @@
-import { MCL } from "../src/app"
+import { MCL } from "../dist"
 
 new MCL(document.querySelector("#app"))
 

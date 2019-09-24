@@ -7,6 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "rimraf ./dist && webpack --config webpack.config.js",
 		"dev": "webpack-dev-server --mode development --config webpack.dev.js",
+		"demo": "npm run build && webpack-dev-server --mode production --config webpack.prod.js",
 		"prepublishOnly": "npm run build"
 	},
 	"repository": {

@@ -5,7 +5,6 @@ import ObjectLight from "./objectLight"
 import ObjectPlain from "./objectPlain"
 
 const ObjectCmp = ({ log, light }) => {
-	
 	return (
 		<>
 			<span className="object">

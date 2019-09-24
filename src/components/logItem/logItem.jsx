@@ -1,6 +1,6 @@
 import React from "react"
 import dispatchComponent from "../types/dispatch"
-import "./log.scss"
+import "./logItem.scss"
 
 const LogItem = ({log}) => {
 	return (

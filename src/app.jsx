@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, hydrate } from 'react-dom'
-import MobileConsoleLight from "./mobileConsoleLight/console"
+import ReactConsole from "./components/reactConsole/reactConsole"
 
 class MCL {
 	constructor( root, options ) {
@@ -17,14 +17,14 @@ class MCL {
 			log: console.log,
 			warn: console.warn 
 		}
-		console.log     = this.consoleCatcher.bind(this);
+		console.log	  = this.consoleCatcher.bind(this);
 		window.onerror  = this.errorCatcher.bind(this);
 	}
 	renderApp () {
-		render(<MobileConsoleLight logs={this.logs} />, this.root)
+		render(<ReactConsole logs={this.logs} />, this.root)
 	}
 	hydrateApp () {
-		hydrate(<MobileConsoleLight logs={this.logs} />, this.root)
+		hydrate(<ReactConsole logs={this.logs} />, this.root)
 	}
 	consoleCatcher () {
 		for( let key in arguments ) {
@@ -44,4 +44,4 @@ class MCL {
 	}
 }
 
-export default MCL
+export { MCL }

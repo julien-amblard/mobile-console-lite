@@ -8,7 +8,6 @@ const ObjetPlain = ({log}) => {
 	const [ open, setOpen ] = useState(false)
 	const toggle = () => setOpen(!open)
 
-
 	return (
 		<>
 			<span onClick={toggle}>
