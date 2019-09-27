@@ -1,0 +1,39 @@
+.toggleBar {
+	display: flex;
+	justify-content: flex-end;
+	height: 20px;
+	border-bottom: solid 1px #d8d8d8;
+	border-top: solid 1px #d8d8d8;
+	background-color: #f3f3f3;
+	&Tool {
+		border-left: solid 1px #d8d8d8;
+		width: 20px;
+		height: 20px;
+		font-size: 19px;
+		cursor: pointer;
+		text-align: center;
+	}
+	.popup {
+		position: relative;
+		&:before, &:after {
+			content: "";
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			width: 7px;
+			height: 7px;
+			border: solid 1px #848484;
+			border-radius: 2px;
+		}
+		&:before {
+			transform: translateX(-2px) translateY(2px); 
+		}
+		&:after {
+			transform: translateX(2px) translateY(-2px); 
+		}
+	}
+}

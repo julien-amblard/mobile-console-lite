@@ -2,6 +2,7 @@
 	.inputJS {
 		position: relative;
 		padding-left: 30px;
+		margin-bottom: 15px;
 		height: 20px;
 		&:before {
 			content: "";
@@ -22,6 +23,11 @@
 			color: #555;
 			font-size: 12px;
 			font-family: Menlo, monospace;
+		}
+	}
+	&.popuped {
+		.inputJS {
+			margin-bottom: 0;
 		}
 	}
 }
