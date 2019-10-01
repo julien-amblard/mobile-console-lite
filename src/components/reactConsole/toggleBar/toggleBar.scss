@@ -13,6 +13,11 @@
 		cursor: pointer;
 		text-align: center;
 	}
+	&Drag {
+		width: calc( 100% - 60px );
+		height: 100%;
+		cursor: pointer;
+	}
 	.popup {
 		position: relative;
 		&:before, &:after {
