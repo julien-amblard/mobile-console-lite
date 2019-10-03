@@ -1,6 +1,9 @@
 # MobileConsoleLite
-An  emulator for debugging on mobile and tablet
+A console emulator for debugging on mobile and tablet
 
+- `num run dev` for running developement mode on localhost:3001
+- `num run demo` for running production mode demo on localhost:3001
+- `num run build` for production build
 
 documentation is coming
 ---
