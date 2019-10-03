@@ -1,5 +1,5 @@
-# mobileConsoleLite
-A  emulator for debugging on mobile and tablet
+# MobileConsoleLite
+An  emulator for debugging on mobile and tablet
 
 
 documentation is coming
