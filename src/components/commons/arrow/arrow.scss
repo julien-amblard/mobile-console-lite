@@ -1,0 +1,12 @@
+.mobileConsoleLight {
+	.arrow {
+		display: inline-block;
+		padding-right: 5px;
+		color: #727272;
+		font-style: normal;
+		font-size: 11px;
+		&.down {
+			transform: rotate(90deg) translateX(3px) translateY(3px);
+		}
+	}
+}

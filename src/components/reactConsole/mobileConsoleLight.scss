@@ -1,0 +1,29 @@
+.mobileConsoleLight {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	&:not(.popuped) { width: 100% !important; height: 300px !important; }
+	&Content {
+		overflow: hidden;
+		overflow-y: scroll;
+	}
+	&.popuped {
+		position: absolute;
+		border-bottom: solid 1px #d8d8d8;
+		border-left: solid 1px #d8d8d8;
+		border-right: solid 1px #d8d8d8;
+		&.minimized { 
+			width: calc(20px * 3) !important; 
+			height: 20px !important;
+			.toggleBarTool:first-child {
+				border-left: 0;
+			}
+		}
+		.mobileConsoleLight {
+			&Content {
+				height: calc( 100% - 22px );
+			}
+		}
+	}
+}

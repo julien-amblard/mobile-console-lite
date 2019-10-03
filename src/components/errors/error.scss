@@ -1,0 +1,19 @@
+.mobileConsoleLight {
+	.errorItem {
+		display: flex;
+	 	justify-content: space-between;
+		border-color: #ffd6d6;
+		background-color: #fff0f0;
+		color: #ff0000;
+		.path {
+			color: #555;
+			text-decoration: underline;
+		}
+		.errorStack {
+			white-space: pre-wrap;
+		}
+		.errorLine {
+			font-size: 12px;
+		}
+	}
+}
