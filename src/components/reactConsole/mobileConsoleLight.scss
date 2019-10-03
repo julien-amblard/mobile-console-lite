@@ -3,8 +3,8 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
+	&:not(.popuped) { width: 100% !important; height: 300px !important; }
 	&Content {
-		height: 300px;
 		overflow: hidden;
 		overflow-y: scroll;
 	}

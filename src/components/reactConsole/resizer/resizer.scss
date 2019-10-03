@@ -1,0 +1,25 @@
+$size: 7px;
+$pos: -4px;
+.mobileConsoleLight {
+	.resizer {
+		position: relative;
+		&Bar {
+			position: absolute;
+		}
+		&Bottom {
+			left: 0; right: 0;
+			height: $size; bottom: $pos;
+			cursor: n-resize;
+		}
+		&Right {
+			top: 20px; bottom: 0;
+			width: $size; right: $pos;
+			cursor: e-resize;
+		}
+		&Square {
+			bottom: -4px; right: -4px;
+			width: calc( #{$size} * 2 ); height: calc( #{$size} * 2 );
+			cursor: all-scroll;
+		}
+	}
+}

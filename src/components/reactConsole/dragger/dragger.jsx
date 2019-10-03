@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import { AST_PropAccess } from "terser"
 
 export const Dragger = ({ onUpdate, className, dragRef, active, children }) => {
 	const [diff, setDiff] = useState([0, 0])
@@ -7,8 +6,8 @@ export const Dragger = ({ onUpdate, className, dragRef, active, children }) => {
 		if( !active ) return
 		event.persist()
 		setDiff([ 
-			event.changedTouches[0].clientX - dragRef.offsetLeft,
-			event.changedTouches[0].clientY - dragRef.offsetTop,
+			event.changedTouches[0].clientX - dragRef.ref.current.offsetLeft,
+			event.changedTouches[0].clientY - dragRef.ref.current.offsetTop,
 		])
 	}
 	const onTouchMove = event => {

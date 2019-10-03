@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react"
 import InputJS from "../input/input"
 import LogsContainer from "./logsContainer/logsContainer"
 import ToggleBar from "./toggleBar/toggleBar"
+import Resizable from "./resizer/resizer"
 import "./mobileConsoleLight.scss"
 
-const DEFAULT_POS = { top: "10px", left: "30px", width: "80%", height: "30%" }
+const DEFAULT_POS = { top: "10px", left: "30px" }
 
 const App = ({ logs }) => {
 	const [minimize, setMinimize] = useState(false)
@@ -31,7 +32,7 @@ const App = ({ logs }) => {
 		<>
 		{
 			!close && 
-			<div className={classList} style={ popup ? popupPos : null } ref={$console}>
+			<Resizable className={classList} style={ popup ? popupPos : null } ref={$console} active={popup} >
 				<ToggleBar 
 					onMinimizeChange={b => setMinimize(b)} 
 					onPopupChange={b => setPopup(b)} 
@@ -43,7 +44,7 @@ const App = ({ logs }) => {
 					<LogsContainer logs={logs} />
 					<InputJS />
 				</div>}
-			</div>
+			</Resizable>
 		}
 		</>
 	)
