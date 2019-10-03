@@ -1,3 +1,10 @@
+# mobileConsoleLite
+A  emulator for debugging on mobile and tablet
+
+
+documentation is coming
+---
+
 ## TODO
 - [x] eval des commandes
 - [x] toggle de la console window
