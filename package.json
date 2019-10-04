@@ -10,7 +10,7 @@
 		"mobile",
 		"tablet",
 		"console.log"
-	  ]
+	],
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"build": "rimraf ./dist && webpack --config webpack.config.js",
