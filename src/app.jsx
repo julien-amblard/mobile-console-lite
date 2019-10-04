@@ -1,15 +1,33 @@
 import React from 'react'
 import { render, hydrate } from 'react-dom'
 import ReactConsole from "./components/reactConsole/reactConsole"
-
-class MCL {
-	constructor( root, options ) {
-		this.catch()
-		this.init(root)
+const default_options = {
+	initOn: {
+		hash: "",
+		query: "",
 	}
-	init (root) {
+}
+class MCL {
+	constructor( root, options = default_options) {
+		this.options = options
+		this._root = root
+		this.init()
+	}
+	get hasOnInit () {
+		return this.options.initOn && ( this.initOnHash || this.initOnQuery )
+	}
+	get initOnHash () { return !!this.options.initOn.hash }
+	get initOnQuery () { return !!this.options.initOn.query }
+	get isHashReady () { return location.hash === `#${this.options.initOn.hash}` }
+	get isQueryReady () { return new URLSearchParams(window.location.search).has(this.options.initOn.query) }
+	init () {
+		if( this.hasOnInit && !this.isHashReady && !this.isQueryReady ) return
+		this.launchDebugger()
+	}
+	launchDebugger () {
+		this.catch()
 		this.logs = []
-		this.root = root instanceof HTMLElement ? root : this.createRoot()
+		this.root = this._root instanceof HTMLElement ? this._root : this.createRoot()
 		this.renderApp()
 	}
 	catch () {

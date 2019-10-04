@@ -5,6 +5,7 @@
 	right: 0;
 	&:not(.popuped) { width: 100% !important; height: 300px !important; }
 	&Content {
+		height: 100%;
 		overflow: hidden;
 		overflow-y: scroll;
 	}
