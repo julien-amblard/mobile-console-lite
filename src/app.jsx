@@ -62,4 +62,5 @@ class MCL {
 	}
 }
 
+export default MCL
 export { MCL }

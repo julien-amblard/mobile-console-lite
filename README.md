@@ -1,11 +1,24 @@
 # MobileConsoleLite
 A console emulator for debugging on mobile and tablet
 
-- `npm run dev` for running developement mode on localhost:3001
-- `npm run demo` for running production mode demo on localhost:3001
-- `npm run build` for production build
+## !!!DOC in progress
 
-documentation is coming
+## Installation
+
+```bash
+$ npm install debug
+```
+
+## Usage
+
+`MobileConsoleLite` create a console DOM window that catch the `console.log` and window error for helping you on mobile and tablet device debugging
+
+```js
+import MCL from "mobileconsolelite"
+
+new MCL(document.querySelector("#app"))
+```
+
 ---
 
 ## TODO
@@ -13,6 +26,9 @@ documentation is coming
 - [x] toggle de la console window
 - [x] resize de la console window
 - [x] drag de la console window
+- [x] init class on hash or query param
 - [ ] css bundles into one single file
 - [ ] or test css in js
 - [ ] doc
+- [ ] TU
+- [ ] TS
