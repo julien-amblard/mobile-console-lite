@@ -92,7 +92,7 @@ new MCL(document.querySelector("#app"), {
 <br />
 <br />
 
-#####You also can set the default display of console
+##### You also can set the default display of console
 
 
 **minimize** : *boolean*
