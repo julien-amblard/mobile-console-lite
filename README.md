@@ -59,10 +59,10 @@ const options = {
 }
 new MCL(document.querySelector("#app"), options)
 ```
-##options
+## options
 <br />
 
-#####You can set conditions for launching the console.
+##### You can set conditions for launching the console.
 
 **hash**
 will start the console if the hash `#name` is present in *url*
