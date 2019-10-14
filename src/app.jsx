@@ -5,11 +5,15 @@ const default_options = {
 	initOn: {
 		hash: "",
 		query: "",
+	},
+	display: {
+		minimize: false,
+		popup: false
 	}
 }
 class MCL {
 	constructor( root, options = default_options) {
-		this.options = options
+		this.options = {...default_options, options}
 		this._root = root
 		this.init()
 	}
@@ -39,7 +43,7 @@ class MCL {
 		window.onerror  = this.errorCatcher.bind(this);
 	}
 	renderApp () {
-		render(<ReactConsole logs={this.logs} />, this.root)
+		render(<ReactConsole logs={this.logs} display={this.options.display} />, this.root)
 	}
 	hydrateApp () {
 		hydrate(<ReactConsole logs={this.logs} />, this.root)

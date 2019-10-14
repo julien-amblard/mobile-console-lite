@@ -1,8 +1,8 @@
 {
-	"name": "mobileconsolelite",
+	"name": "mobile-console-lite",
 	"version": "2.0.0",
 	"description": "A console emulator for debugging on mobile and tablet",
-	"main": "lib/index.js",
+	"main": "lib/mcl.js",
 	"keywords": [
 		"debug",
 		"debugger",
