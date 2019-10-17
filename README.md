@@ -1,5 +1,6 @@
 # MobileConsoleLite
-[![CircleCI](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite.svg?style=svg)](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite)
+[![CircleCI Status](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite)
+
 Console emulator help you for debugging on mobile and tablet device.
 `MobileConsoleLite` create a DOM console catching the console.log and window error.
 
