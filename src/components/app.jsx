@@ -28,7 +28,7 @@ const App = ({ logs = [], options = {} }) => {
 	}
 	return (
 		<StateProvider initialState={initialState} reducer={reducer}>
-            <ReactConsole />
+			<ReactConsole />
 		</StateProvider>
 	)
 }
