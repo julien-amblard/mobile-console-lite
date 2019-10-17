@@ -1,11 +1,11 @@
 import React from "react"
+import { useStateValue } from '../../StateProvider'
 import LogItem from "../../logItem/logItem"
 import ErrorItem from "../../errors/error"
 import "./logsContainer.scss"
 
-
-
-const LogsContainer = ({logs}) => {
+const LogsContainer = (props) => {
+	const [{ logs }] = useStateValue()
 	return (
 		<div className="logsContainer">
 			{logs.map( (log, index) => (
