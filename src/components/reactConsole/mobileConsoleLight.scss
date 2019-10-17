@@ -4,8 +4,9 @@
 	left: 0;
 	right: 0;
 	&:not(.popuped) { width: 100% !important; height: 300px !important; }
+	&.minimized { height: 20px !important; }
 	&Content {
-		height: 100%;
+		height: calc( 100% - 20px );
 		overflow: hidden;
 		overflow-y: scroll;
 	}

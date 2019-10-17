@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, hydrate } from 'react-dom'
-import ReactConsole from "./components/reactConsole/reactConsole"
+import App from "./components/app"
 const default_options = {
 	initOn: {
 		hash: "",
@@ -43,10 +43,10 @@ class MCL {
 		window.onerror  = this.errorCatcher.bind(this);
 	}
 	renderApp () {
-		render(<ReactConsole logs={this.logs} display={this.options.display} />, this.root)
+		render(<App logs={this.logs} display={this.options.display} />, this.root)
 	}
 	hydrateApp () {
-		hydrate(<ReactConsole logs={this.logs} />, this.root)
+		hydrate(<App logs={this.logs} />, this.root)
 	}
 	consoleCatcher () {
 		for( let key in arguments ) {

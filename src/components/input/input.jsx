@@ -26,12 +26,12 @@ const InputJs = () => {
 		reset()
 		if( cmd.match(/^(var|let|const)(.*)(=)(.*)/) ) cmd = clean(cmd)
 		const ret = eval(cmd)
-		console.log(ret);
+		console.log(ret)
 	}
 	const keyBinding = { 13: onEnter, 38: onArrowUp, 40: onArrowDown }
 	const onChange = e => setValue(e.target.value)
 	const onKeyUp = ({ keyCode }) => typeof keyBinding[keyCode] === "function" ? keyBinding[keyCode]() : null
-	
+
 	return (
 		<div className="inputJS">
 			<input className={"inputJSEval"} type="text" onChange={onChange} onKeyUp={onKeyUp} value={value} />

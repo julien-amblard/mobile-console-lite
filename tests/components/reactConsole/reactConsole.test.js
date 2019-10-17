@@ -1,14 +1,19 @@
 import React from "react"
-import { shallow } from "enzyme"
+import { mount } from "enzyme"
 
+import { StateContext, DEFAULT_STATE } from '../../../src/components/StateProvider'
 import ReactConsole from "../../../src/components/reactConsole/reactConsole"
 import InputJS from "../../../src/components/input/input"
 import LogsContainer from "../../../src/components/reactConsole/logsContainer/logsContainer"
 import ToggleBar from "../../../src/components/reactConsole/toggleBar/toggleBar"
 import Resizable from "../../../src/components/reactConsole/resizer/resizer"
 
+
+const dispatch = jest.fn()
 describe("<ReactConsole /> default", () => {
-    const wrapper = shallow(<ReactConsole />)
+    const wrapper = mount(<StateContext.Provider value={[DEFAULT_STATE, dispatch]}>
+        <ReactConsole />
+    </StateContext.Provider>)
     test("should be correctly renderer", () => {
         expect(wrapper).toBeDefined()
     })
@@ -43,7 +48,9 @@ describe("<ReactConsole /> default", () => {
 
 
 describe("<ReactConsole /> minimized", () => {
-    const wrapper = shallow(<ReactConsole options={{minimize: true}} />)
+    const wrapper = mount(<StateContext.Provider value={[{...DEFAULT_STATE, minimize: true}, dispatch]}>
+        <ReactConsole />
+    </StateContext.Provider>)
     test("should be correctly renderer", () => {
         expect(wrapper).toBeDefined()
     })
@@ -76,7 +83,9 @@ describe("<ReactConsole /> minimized", () => {
 })
 
 describe("<ReactConsole /> popuped", () => {
-    const wrapper = shallow(<ReactConsole options={{popup: true}} />)
+    const wrapper = mount(<StateContext.Provider value={[{...DEFAULT_STATE, popup: true}, dispatch]}>
+        <ReactConsole />
+    </StateContext.Provider>)
     test("should be correctly renderer", () => {
         expect(wrapper).toBeDefined()
     })

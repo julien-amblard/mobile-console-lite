@@ -1,7 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
 const config = {
-	entry : './src/app.jsx',
+	entry : './src/index.jsx',
 	output : {
 		path: path.resolve(__dirname,'dist'),
 		filename: 'mcl.js',

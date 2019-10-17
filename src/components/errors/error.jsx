@@ -4,7 +4,7 @@ import ErrorLine from "./errorLine"
 import "./error.scss"
 
 const ErrorItem = ({ log }) => {
-	const { messageOrEvent, source, noligne, nocolonne, erreur } = log	
+	const { messageOrEvent, source, noligne, nocolonne, erreur } = log
 	return (
 		<div className="logItem errorItem">
 			<ErrorStack stack={erreur.stack} />

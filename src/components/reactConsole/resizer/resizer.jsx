@@ -1,9 +1,9 @@
 import React from "react"
 import "./resizer.scss"
-class Resizer extends React.Component { 
+class Resizer extends React.Component {
 	constructor(props) {
-		super(props);
-		this.ref = React.createRef();
+		super(props)
+		this.ref = React.createRef()
 		this.state = {
 			width: this.props.width || "80%",
 			height: this.props.height || "30%"
@@ -29,15 +29,15 @@ class Resizer extends React.Component {
 	}
 	render () {
 		const style = {
-			...this.props.style, 
-			width: this.state.width, 
+			...this.props.style,
+			width: this.state.width,
 			height: this.state.height
 		}
 		return (
 			<div className={this.props.className} ref={this.ref} style={style}>
 				<div className="resizer">
 					{this.props.children}
-					{ this.props.active && 
+					{ this.props.active &&
 						<>
 							<div className="resizerBar resizerBottom"
 								onTouchMove={this.onTouchMoveY.bind(this)}
