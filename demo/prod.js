@@ -1,4 +1,4 @@
-import { MCL } from "../dist"
+import { MCL } from "../dist/mcl.js"
 
 new MCL(document.querySelector("#app"))
 

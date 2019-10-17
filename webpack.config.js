@@ -4,7 +4,7 @@ const config = {
 	entry : './src/app.jsx',
 	output : {
 		path: path.resolve(__dirname,'dist'),
-		filename: 'index.js',
+		filename: 'mcl.js',
 		libraryTarget: 'umd'
 	},
 	mode: 'production',

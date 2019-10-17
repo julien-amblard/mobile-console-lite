@@ -7,9 +7,9 @@ import "./mobileConsoleLight.scss"
 
 const DEFAULT_POS = { top: "10px", left: "30px" }
 
-const App = ({ logs }) => {
-	const [minimize, setMinimize] = useState(false)
-	const [popup, setPopup] = useState(false)
+const App = ({ logs = [], options = {} }) => {
+	const [minimize, setMinimize] = useState(typeof options.minimize === "boolean" ? options.minimize : false )
+	const [popup, setPopup] = useState(typeof options.popup === "boolean" ? options.popup : false )
 	const [popupPos, setPopupPos] = useState(DEFAULT_POS)
 	const [close, setClose] = useState(false)
 	const $scroller = useRef(null)
