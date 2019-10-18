@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const npm_package = require('./package.json')
 const config = {
 	entry : './src/index.jsx',
 	output : {

@@ -1,12 +1,12 @@
 import React from "react"
 import { mount } from "enzyme"
 
-import { StateContext, DEFAULT_STATE } from '../../../src/components/StateProvider'
-import ReactConsole from "../../../src/components/reactConsole/reactConsole"
-import InputJS from "../../../src/components/input/input"
-import LogsContainer from "../../../src/components/reactConsole/logsContainer/logsContainer"
-import ToggleBar from "../../../src/components/reactConsole/toggleBar/toggleBar"
-import Resizable from "../../../src/components/reactConsole/resizer/resizer"
+import { StateContext, DEFAULT_STATE } from '@Components/StateProvider'
+import ReactConsole from "@Components/reactConsole/reactConsole"
+import InputJS from "@Components/input/input"
+import LogsContainer from "@Components/reactConsole/logsContainer/logsContainer"
+import ToggleBar from "@Components/reactConsole/toggleBar/toggleBar"
+import Resizable from "@Components/reactConsole/resizer/resizer"
 
 
 const dispatch = jest.fn()

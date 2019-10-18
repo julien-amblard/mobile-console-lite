@@ -3,6 +3,8 @@ import ReactConsole from "./reactConsole/reactConsole"
 import { StateProvider, DEFAULT_STATE } from './StateProvider'
 
 
+
+
 const App = ({ logs = [], options = {} }) => {
 	const initialState = {
 		...DEFAULT_STATE,
