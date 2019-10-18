@@ -1,7 +1,7 @@
 import React from "react"
-import { useStateValue } from '../../StateProvider'
-import LogItem from "../../logItem/logItem"
-import ErrorItem from "../../errors/error"
+import { useStateValue } from '@Components/StateProvider'
+import LogItem from "@Components/logItem/logItem"
+import ErrorItem from "@Components/errors/error"
 import "./logsContainer.scss"
 
 const LogsContainer = (props) => {

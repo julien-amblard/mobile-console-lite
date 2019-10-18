@@ -1,5 +1,5 @@
 import React from "react"
-import ReactConsole from "./reactConsole/reactConsole"
+import ReactConsole from "@Components/reactConsole/reactConsole"
 import { StateProvider, DEFAULT_STATE } from './StateProvider'
 
 

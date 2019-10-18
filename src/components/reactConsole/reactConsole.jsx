@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
-import { useStateValue } from '../StateProvider'
-import InputJS from "../input/input"
+import { useStateValue } from '@Components/StateProvider'
+import InputJS from "@Components/input/input"
 import LogsContainer from "./logsContainer/logsContainer"
 import ToggleBar from "./toggleBar/toggleBar"
 import Resizable from "./resizer/resizer"

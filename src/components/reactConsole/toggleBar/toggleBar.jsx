@@ -1,6 +1,6 @@
 import React from "react"
-import { useStateValue } from '../../StateProvider'
-import Dragger from "../dragger/dragger"
+import { useStateValue } from '@Components/StateProvider'
+import Dragger from "@Components/reactConsole/dragger/dragger"
 import "./toggleBar.scss"
 
 export default ({ dragRef }) => {

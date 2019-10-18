@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, hydrate } from 'react-dom'
-import App from "./components/app"
+import App from "@Components/app"
 const default_options = {
 	initOn: {
 		hash: "",

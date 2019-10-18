@@ -1,5 +1,5 @@
 import React from "react"
-import dispatchComponent from "../types/dispatch"
+import dispatchComponent from "@Components/types/dispatch"
 import "./logItem.scss"
 
 const LogItem = ({log}) => {
