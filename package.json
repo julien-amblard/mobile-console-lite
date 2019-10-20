@@ -12,11 +12,12 @@
 		"console.log"
 	],
 	"scripts": {
-		"test": "yarn jest --config=./tests/jest.config.js --verbose",
+		"circleci-test": "yarn jest --config=./tests/jest.config.js",
+		"test": "yarn jest --config=./tests/jest.config.js --verbose --watchAll",
 		"build": "rimraf ./dist && webpack --config webpack.config.js",
 		"dev": "webpack-dev-server --mode development --config webpack.dev.js",
-		"demo": "npm run build && webpack-dev-server --mode production --config webpack.prod.js",
-		"prepublishOnly": "npm run build"
+		"demo": "yarn build && webpack-dev-server --mode production --config webpack.prod.js",
+		"prepublishOnly": "yarn build"
 	},
 	"repository": {
 		"type": "git",
