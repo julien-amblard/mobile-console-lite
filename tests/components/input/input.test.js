@@ -14,4 +14,7 @@ describe("<Input />", () => {
 		expect(wrapper.find("input[type='text']").exists()).toBe(true)
 		expect(wrapper.find("input[type='text']").hasClass("inputJSEval")).toBe(true)
 	})
+	/**	
+	 * need to do all using case test
+	 */
 })
