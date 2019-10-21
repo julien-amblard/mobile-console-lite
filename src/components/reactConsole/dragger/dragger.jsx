@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useStateValue } from '../../StateProvider'
+import { useStateValue } from '@Components/StateProvider'
 
 export const Dragger = ({ className, dragRef, children }) => {
 	const [{ popup }, dispatch] = useStateValue()

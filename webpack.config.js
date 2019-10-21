@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+const npm_package = require('./package.json')
 const config = {
 	entry : './src/index.jsx',
 	output : {
@@ -11,7 +12,10 @@ const config = {
 	target: 'web',
 	plugins: [],
 	resolve: {
-		extensions: ['.js', '.jsx']
+		extensions: ['.js', '.jsx'],
+		alias: {
+			"@Components": path.join(__dirname, 'src/components')
+		}
 	},
 	module: {
 		rules: [

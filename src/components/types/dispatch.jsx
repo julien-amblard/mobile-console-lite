@@ -1,13 +1,13 @@
 import React from "react"
 
-import BoolLog from "./boolean/boolean"
-import TextLog from "./text/text"
-import UndefinedLog from "./undefined/undefined"
-import NullLog from "./null/null"
-import IntLog from "./int/int"
-import ArrLog from "./array/array"
-import ObjLog from "./object/object"
-import FuncLog from "./func/func"
+import BoolLog from "@Components/types/boolean/boolean"
+import TextLog from "@Components/types/text/text"
+import UndefinedLog from "@Components/types/undefined/undefined"
+import NullLog from "@Components/types/null/null"
+import IntLog from "@Components/types/int/int"
+import ArrLog from "@Components/types/array/array"
+import ObjLog from "@Components/types/object/object"
+import FuncLog from "@Components/types/func/func"
 
 const checker = [
 	{ check: log => typeof log === "undefined", Cmp: UndefinedLog },

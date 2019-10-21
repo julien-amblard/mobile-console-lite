@@ -6,12 +6,14 @@ import ArrPlain from "./arrayPlain"
 
 const ArrLog = ({ log, light }) => {
 	return (
-		<span className="array">
-			{ light 
-				? <ArrLight log={ log } />
-				: <ArrPlain log={ log } />
-			}
-		</span>
+		<>
+			{ !!log && <span className="array">
+				{ light 
+					? <ArrLight log={ log } />
+					: <ArrPlain log={ log } />
+				}
+			</span> }
+		</>
 	)
 }
 export default ArrLog

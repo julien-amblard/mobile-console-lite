@@ -1,6 +1,6 @@
 import React from "react"
-import { useStateValue } from '../../StateProvider'
-import Dragger from "../dragger/dragger"
+import { useStateValue } from '@Components/StateProvider'
+import Dragger from "@Components/reactConsole/dragger/dragger"
 import "./toggleBar.scss"
 
 export default ({ dragRef }) => {
@@ -12,9 +12,9 @@ export default ({ dragRef }) => {
 
 	return (
 		<Dragger className="toggleBar" dragRef={dragRef} >
-			<div className="toggleBarTool minimize" title="Reduire" onClick={toggleMinimize}>-</div>
-			<div className="toggleBarTool popup" title="Détacher" onClick={togglePopup}></div>
-			<div className="toggleBarTool close" title="Fermer" onClick={onClose}>&times;</div>
+			<div className="toggleBarTool minimize" title="Reduire" onClick={toggleMinimize} data-test-value={minimize}>-</div>
+			<div className="toggleBarTool popup" title="Détacher" onClick={togglePopup} data-test-value={popup}></div>
+			<div className="toggleBarTool close" title="Fermer" onClick={onClose} data-test-value={close}>&times;</div>
 		</Dragger>
 	)
 }
