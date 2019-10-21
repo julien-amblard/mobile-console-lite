@@ -17,7 +17,7 @@
 		"build": "rimraf ./dist && webpack --config webpack.config.js",
 		"dev": "webpack-dev-server --mode development --config webpack.dev.js",
 		"demo": "yarn build && webpack-dev-server --mode production --config webpack.prod.js",
-		"prepublishOnly": "yarn build"
+		"prepublishOnly": "yarn circleci-test && yarn build"
 	},
 	"repository": {
 		"type": "git",

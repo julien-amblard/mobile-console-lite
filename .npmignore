@@ -5,11 +5,11 @@ tests
 demo
 node_modules
 .gitignore
-babel.config.json
-jsconfig.js
+babel.config.js
+jsconfig.json
 package-lock.json
 yarn.lock
 yarn-error.log
 webpack.config.js
-webpack.demo.js
+webpack.dev.js
 webpack.prod.js
