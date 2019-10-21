@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import dispatchComponent from "../dispatch"
-import Arrow from "../../commons/arrow/arrow"
+import Arrow from "@Components/commons/arrow/arrow"
 import ArrLight from "./arrayLight"
 import ArrDetails from "./arrayDetails"
 
@@ -10,7 +10,7 @@ const arrPlain = ({ log }) => {
 
 	return (
 		<>
-			<span onClick={toggle}>
+			<span data-test="click" onClick={toggle}>
 				<Arrow open={open} />
 				{ open ? <ArrLight log={log} /> :
 					<>

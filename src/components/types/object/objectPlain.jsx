@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react"
 import dispatchComponent from "../dispatch"
-import Arrow from "../../commons/arrow/arrow"
+import Arrow from "@Components/commons/arrow/arrow"
 import ObjectDetails from "./objectDetails"
 
 const ObjetPlain = ({log}) => {
@@ -10,7 +10,7 @@ const ObjetPlain = ({log}) => {
 
 	return (
 		<>
-			<span onClick={toggle}>
+			<span data-test="click" onClick={toggle}>
 				<Arrow open={open} />
 				{'{'}
 				{Keys.map( (k, index) => (
