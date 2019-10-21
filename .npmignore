@@ -1,8 +1,12 @@
 /.vscode
+.circleci
 src
+tests
 demo
 node_modules
 .gitignore
+babel.config.json
+jsconfig.js
 package-lock.json
 yarn.lock
 yarn-error.log
