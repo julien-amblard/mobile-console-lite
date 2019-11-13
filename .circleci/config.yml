@@ -44,6 +44,10 @@ jobs:
           at: ~/repo
 
       - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+
+      - run:
           name: Save package informations
           command: |
             echo 'export CURRENT_PACKAGE_VERSION=$(git describe --tags)' >> $BASH_ENV

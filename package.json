@@ -1,6 +1,5 @@
 {
 	"name": "mobile-console-lite",
-	"version": "1.0.1",
 	"description": "A console emulator for debugging on mobile and tablet",
 	"main": "lib/mcl.js",
 	"keywords": [
@@ -29,8 +28,6 @@
 		"url": "https://github.com/Julien-Amblard/mobileConsoleLite/issues"
 	},
 	"homepage": "https://github.com/Julien-Amblard/mobileConsoleLite#readme",
-	"devDependencies": {
-	},
 	"devDependencies": {
 		"@babel/cli": "^7.5.5",
 		"@babel/core": "^7.5.5",
