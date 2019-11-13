@@ -30,6 +30,8 @@
 	},
 	"homepage": "https://github.com/Julien-Amblard/mobileConsoleLite#readme",
 	"devDependencies": {
+	},
+	"devDependencies": {
 		"@babel/cli": "^7.5.5",
 		"@babel/core": "^7.5.5",
 		"@babel/plugin-proposal-object-rest-spread": "^7.5.5",
