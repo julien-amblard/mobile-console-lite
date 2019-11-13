@@ -2,6 +2,7 @@ import { MCL } from "../src/index"
 
 new MCL(document.querySelector("#app"))
 
+
 console.log( true )
 console.log( true, false )
 console.log( "string test" )
