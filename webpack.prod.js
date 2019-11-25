@@ -16,5 +16,5 @@ module.exports = {
 			"@Components": path.join(__dirname, 'src/components')
 		}
 	},
-	devServer: { port: 3002 }
+	devServer: { port: 3002, open: true }
 }
