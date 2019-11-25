@@ -3,6 +3,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
+	background-color: #fff;
 	&:not(.popuped) { width: 100% !important; height: 300px !important; }
 	&.minimized { height: 20px !important; }
 	&Content {
