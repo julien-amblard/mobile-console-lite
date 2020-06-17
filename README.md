@@ -1,8 +1,8 @@
 # MobileConsoleLite
-[![CircleCI Status](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite)
+[![CircleCI Status](https://circleci.com/gh/Julien-Amblard/mobileConsoleLite.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/sl-julienamblard/mobileConsoleLite)
 [![npm](https://img.shields.io/npm/dt/mobile-console-lite.svg?style=flat-square)](https://www.npmjs.com/package/mobile-console-lite)
 [![npm](https://img.shields.io/npm/v/mobile-console-lite.svg?style=flat-square)](https://www.npmjs.com/package/mobile-console-lite)
-[![npm](https://img.shields.io/npm/l/mobile-console-lite.svg?style=flat-square)](https://github.com/Julien-Amblard/mobileConsoleLite/blob/master/LICENSE)
+[![npm](https://img.shields.io/npm/l/mobile-console-lite.svg?style=flat-square)](https://github.com/sl-julienamblard/mobileConsoleLite/blob/master/LICENSE)
 
 Console emulator help you for debugging on mobile and tablet device.
 `MobileConsoleLite` create a DOM console catching the console.log and window error.
