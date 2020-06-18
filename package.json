@@ -20,15 +20,15 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/Julien-Amblard/mobileConsoleLite.git"
+		"url": "git+https://github.com/sl-julienamblard/mobile-console-lite.git"
 	},
 	"author": "Julien Amblard <amblard.julien@gmail.com>",
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/Julien-Amblard/mobileConsoleLite/issues"
+		"url": "https://github.com/sl-julienamblard/mobile-console-lite/issues"
 	},
 	"files": ["dist/"],
-	"homepage": "https://github.com/Julien-Amblard/mobileConsoleLite#readme",
+	"homepage": "https://github.com/sl-julienamblard/mobile-console-lite#readme",
 	"devDependencies": {
 		"@babel/cli": "^7.5.5",
 		"@babel/core": "^7.5.5",
